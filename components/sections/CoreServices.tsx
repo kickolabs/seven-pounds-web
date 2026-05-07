@@ -93,7 +93,7 @@ export default function CoreServices() {
             </p>
             <h2 className="type-heading font-medium tracking-tight">
               Everything you need.{" "}
-              <span className="text-brand">Nothing you don't.</span>
+              <span className="text-brand">Nothing you don&apos;t.</span>
             </h2>
             <p className="type-body-lg text-slate-400 max-w-sm">
               Expert financial support — structured, ethical, and built around you.
@@ -145,7 +145,7 @@ export default function CoreServices() {
         <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={defaultViewport}
           className="type-heading font-medium tracking-tight mb-4">
           Everything you need.{" "}
-          <span className="text-brand">Nothing you don't.</span>
+          <span className="text-brand">Nothing you don&apos;t.</span>
         </motion.h2>
         <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={defaultViewport}
           className="type-body-lg text-slate-400 mb-10">

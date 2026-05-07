@@ -35,8 +35,8 @@ export default function WhoWeServe() {
           viewport={defaultViewport}
           className="type-heading font-medium tracking-tight max-w-2xl"
         >
-          If you're struggling,{" "}
-          <span className="text-brand">we're for you.</span>
+          If you&apos;re struggling,{" "}
+          <span className="text-brand">we&apos;re for you.</span>
         </motion.h2>
         <motion.p
           variants={fadeUp}

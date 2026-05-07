@@ -19,7 +19,7 @@ export default function ContactSection() {
               viewport={defaultViewport}
               className="type-eyebrow text-slate-400 mb-4"
             >
-              Let's talk
+              Let&apos;s talk
             </motion.p>
             <motion.h2
               variants={fadeUp}

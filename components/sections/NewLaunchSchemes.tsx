@@ -83,7 +83,7 @@ export default function NewLaunchSchemes({ onGetStarted }: NewLaunchSchemesProps
             viewport={defaultViewport}
             className="type-body-lg text-slate-400 max-w-2xl mx-auto"
           >
-            One of these fits your situation. Let's get you started.
+            One of these fits your situation. Let&apos;s get you started.
           </motion.p>
         </div>
 
