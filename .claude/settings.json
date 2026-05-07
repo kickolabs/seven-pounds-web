@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install *)",
+      "WebFetch(domain:lazypay.in)",
+      "Bash(Get-ChildItem -Path \"e:\\\\The Seven Pounds\" -Recurse -Force)",
+      "Bash(Select-Object -Property FullName, PSIsContainer)",
+      "Bash(ConvertTo-Csv -NoTypeInformation)",
+      "Bash(Out-String)",
+      "Bash(Get-ChildItem -Path \"e:\\\\The Seven Pounds\\\\seven-pounds-reference\" -Force -Recurse -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object FullName)",
+      "Bash(npx create-next-app@latest . --typescript --tailwind --app --no-src-dir --eslint --import-alias \"@/*\")",
+      "Bash(npx next *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000)",
+      "Bash(Remove-Item -Recurse -Force \"e:\\\\The Seven Pounds\\\\seven-pounds-reference\")",
+      "Bash(Remove-Item -Recurse -Force \"e:\\\\The Seven Pounds\\\\.next\" -ErrorAction SilentlyContinue)",
+      "Bash(Write-Host \"Cleared\")",
+      "Bash(Get-ChildItem -Path \"e:\\\\The Seven Pounds\\\\components\\\\shared\\\\\" -Filter \"*AnimatedText*\" -ErrorAction SilentlyContinue)",
+      "PowerShell($f = Get-Item \"e:\\\\The Seven Pounds\\\\public\\\\images\\\\hero-character.png\"; \"$\\($f.Name\\) | $\\($f.Length\\) bytes | $\\($f.LastWriteTime\\)\")",
+      "PowerShell($src = Get-Item \"C:\\\\Users\\\\Mugundan M P\\\\Downloads\\\\Hero 1 \\(1\\) \\(1\\).png\"; \"$\\($src.Name\\) | $\\($src.Length\\) bytes | $\\($src.LastWriteTime\\)\")",
+      "Bash(Get-ChildItem -Path \"e:\\\\The Seven Pounds\" -Recurse -Include \"*.tsx\", \"*.ts\")",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "Bash(Remove-Item \"e:\\\\The Seven Pounds\\\\components\\\\shared\\\\GradientOrb.tsx\" -Force)",
+      "Bash(Remove-Item \"e:\\\\The Seven Pounds\\\\components\\\\shared\\\\SectionWrapper.tsx\" -Force)",
+      "Bash(Remove-Item \"e:\\\\The Seven Pounds\\\\components\\\\ui\\\\button.tsx\" -Force)",
+      "Bash(Remove-Item \"e:\\\\The Seven Pounds\\\\components\\\\ui\\\\badge.tsx\" -Force)",
+      "Bash(Remove-Item \"e:\\\\The Seven Pounds\\\\components\\\\ui\\\\separator.tsx\" -Force)",
+      "Bash(Get-ChildItem -Path \"e:\\\\The Seven Pounds\\\\components\\\\\" -Recurse -File | Select-Object -ExpandProperty FullName | head -20)",
+      "Bash(Select-String \"\\\\.env\")",
+      "Bash(git init *)",
+      "Bash(git remote *)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\Mugundan M P\\Downloads"
+    ]
+  }
+}

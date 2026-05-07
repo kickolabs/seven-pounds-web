@@ -1,0 +1,217 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 346 100% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 346 100% 58%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 346 100% 58%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 346 100% 58%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    text-transform: capitalize;
+  }
+}
+
+@layer components {
+  /* Hero h1 — 30px mobile → 48px sm → 56px xl */
+  .type-display {
+    @apply text-3xl sm:text-5xl xl:text-[3.5rem] leading-[1.12];
+  }
+
+  /* Section h2 — 24px mobile → 30px sm → 36px md → 48px lg */
+  .type-heading {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.1];
+  }
+
+  /* Large feature h3 (GSAP/desktop only) — 24px → 30px → 36px */
+  .type-subheading {
+    @apply text-2xl md:text-3xl lg:text-4xl leading-snug;
+  }
+
+  /* Component / card h3 — 20px mobile → 24px sm */
+  .type-card-heading {
+    @apply text-xl sm:text-2xl leading-snug;
+  }
+
+  /* Accordion / list item heading — 14px mobile → 16px desktop */
+  .type-item-heading {
+    @apply text-sm sm:text-base leading-snug;
+  }
+
+  /* Section descriptive paragraphs — 16px mobile → 18px desktop */
+  .type-body-lg {
+    @apply text-base sm:text-lg leading-relaxed;
+  }
+
+  /* Standard body — 14px mobile → 16px desktop */
+  .type-body {
+    @apply text-sm sm:text-base leading-relaxed;
+  }
+
+  /* ALL-CAPS section eyebrow labels — 10px */
+  .type-eyebrow {
+    @apply text-[10px] uppercase tracking-widest font-medium;
+  }
+}
+
+/* Standard section padding — change here to affect the whole site */
+.section-pad {
+  @apply px-4 sm:px-6 md:px-8 lg:px-16 py-16 sm:py-20 md:py-24;
+}
+
+/* Glow card — gradient border + ambient blur glow */
+.glow-card {
+  position: relative;
+  background: linear-gradient(-45deg, #FF2D55 0%, #7c0a1e 100%);
+  padding: 1.5px;
+  border-radius: 20px;
+  z-index: 0;
+}
+
+.glow-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(-45deg, #FF2D55 0%, #7c0a1e 100%);
+  transform: scale(0.96);
+  filter: blur(18px);
+  opacity: 0.3;
+  z-index: -1;
+  transition: filter 0.5s ease, opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.glow-card:hover::after {
+  filter: blur(28px);
+  opacity: 0.65;
+}
+
+/* Dot grid backgrounds */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, rgba(148,163,184,0.45) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+.bg-dot-grid-muted {
+  background-image: radial-gradient(circle, rgba(148,163,184,0.28) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* Text selection */
+::selection {
+  background-color: rgba(255, 45, 85, 0.25);
+  color: inherit;
+}
+
+/* Disable native smooth scroll — Lenis handles it */
+html {
+  scroll-behavior: auto;
+}
+
+/* Keyboard focus ring — brand colour, covers all buttons, links, inputs */
+:focus-visible {
+  outline: 2px solid #FF2D55;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+::-webkit-scrollbar-thumb {
+  background: #FF2D55;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #e6002e;
+}
+
+/* Ambient background orbs — GPU-composited, no JS */
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  will-change: transform;
+  pointer-events: none;
+}
+.bg-orb-1 {
+  width: min(700px, 90vw);
+  height: min(700px, 90vw);
+  background: radial-gradient(circle, rgba(255,45,85,0.35) 0%, rgba(255,45,85,0.12) 40%, transparent 70%);
+  top: -15%;
+  left: -15%;
+  animation: orbFloat1 20s ease-in-out infinite;
+}
+.bg-orb-2 {
+  width: min(600px, 80vw);
+  height: min(600px, 80vw);
+  background: radial-gradient(circle, rgba(255,45,85,0.22) 0%, rgba(255,45,85,0.07) 40%, transparent 70%);
+  bottom: -15%;
+  right: -15%;
+  animation: orbFloat2 25s ease-in-out infinite;
+}
+@keyframes orbFloat1 {
+  0%, 100% { transform: translate(0, 0); }
+  33%       { transform: translate(40px, 25px); }
+  66%       { transform: translate(-25px, 40px); }
+}
+@keyframes orbFloat2 {
+  0%, 100% { transform: translate(0, 0); }
+  33%       { transform: translate(-40px, -30px); }
+  66%       { transform: translate(30px, -45px); }
+}
