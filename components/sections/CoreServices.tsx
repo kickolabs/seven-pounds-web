@@ -41,7 +41,7 @@ export default function CoreServices() {
   }
 
   useEffect(() => {
-    if (window.matchMedia("(max-width: 768px)").matches) return
+    if (window.matchMedia("(max-width: 1023px)").matches) return
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
