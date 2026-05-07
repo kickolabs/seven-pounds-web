@@ -56,52 +56,74 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    font-size: 16px;
+    line-height: 1.75;
+    letter-spacing: 0.01em;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
   }
 
+  /* Headings — tight leading, slight negative tracking, balanced wrapping */
   h1, h2, h3, h4, h5, h6 {
     text-transform: capitalize;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  /* Body paragraphs — generous line-height, no orphaned single words */
+  p {
+    line-height: 1.8;
+    letter-spacing: 0.01em;
+    text-wrap: pretty;
+    max-width: 70ch;
+  }
+
+  /* Paragraphs inside prose containers get vertical rhythm */
+  p + p {
+    margin-top: 1.1em;
   }
 }
 
 @layer components {
   /* Hero h1 — 30px mobile → 48px sm → 56px xl */
   .type-display {
-    @apply text-3xl sm:text-5xl xl:text-[3.5rem] leading-[1.12];
+    @apply text-3xl sm:text-5xl xl:text-[3.5rem] leading-[1.1] tracking-tight;
   }
 
   /* Section h2 — 24px mobile → 30px sm → 36px md → 48px lg */
   .type-heading {
-    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.1];
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight;
   }
 
   /* Large feature h3 (GSAP/desktop only) — 24px → 30px → 36px */
   .type-subheading {
-    @apply text-2xl md:text-3xl lg:text-4xl leading-snug;
+    @apply text-2xl md:text-3xl lg:text-4xl leading-[1.2] tracking-tight;
   }
 
   /* Component / card h3 — 20px mobile → 24px sm */
   .type-card-heading {
-    @apply text-xl sm:text-2xl leading-snug;
+    @apply text-xl sm:text-2xl leading-[1.3];
   }
 
   /* Accordion / list item heading — 14px mobile → 16px desktop */
   .type-item-heading {
-    @apply text-sm sm:text-base leading-snug;
+    @apply text-sm sm:text-base leading-[1.4];
   }
 
   /* Section descriptive paragraphs — 16px mobile → 18px desktop */
   .type-body-lg {
-    @apply text-base sm:text-lg leading-relaxed;
+    @apply text-base sm:text-lg leading-[1.85];
   }
 
   /* Standard body — 14px mobile → 16px desktop */
   .type-body {
-    @apply text-sm sm:text-base leading-relaxed;
+    @apply text-sm sm:text-base leading-[1.8];
   }
 
   /* ALL-CAPS section eyebrow labels — 10px */
   .type-eyebrow {
-    @apply text-[10px] uppercase tracking-widest font-medium;
+    @apply text-[10px] uppercase tracking-widest font-medium leading-none;
   }
 }
 
