@@ -63,10 +63,10 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Headings — tight leading, slight negative tracking, balanced wrapping */
+  /* Headings — comfortable leading, slight negative tracking, balanced wrapping */
   h1, h2, h3, h4, h5, h6 {
     text-transform: capitalize;
-    line-height: 1.15;
+    line-height: 1.3;
     letter-spacing: -0.025em;
     text-wrap: balance;
   }
@@ -88,22 +88,22 @@
 @layer components {
   /* Hero h1 — 30px mobile → 48px sm → 56px xl */
   .type-display {
-    @apply text-3xl sm:text-5xl xl:text-[3.5rem] leading-[1.1] tracking-tight;
+    @apply text-3xl sm:text-5xl xl:text-[3.5rem] leading-[1.3] tracking-tight;
   }
 
   /* Section h2 — 24px mobile → 30px sm → 36px md → 48px lg */
   .type-heading {
-    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight;
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.3] tracking-tight;
   }
 
   /* Large feature h3 (GSAP/desktop only) — 24px → 30px → 36px */
   .type-subheading {
-    @apply text-2xl md:text-3xl lg:text-4xl leading-[1.2] tracking-tight;
+    @apply text-2xl md:text-3xl lg:text-4xl leading-[1.35] tracking-tight;
   }
 
   /* Component / card h3 — 20px mobile → 24px sm */
   .type-card-heading {
-    @apply text-xl sm:text-2xl leading-[1.3];
+    @apply text-xl sm:text-2xl leading-[1.4];
   }
 
   /* Accordion / list item heading — 14px mobile → 16px desktop */
