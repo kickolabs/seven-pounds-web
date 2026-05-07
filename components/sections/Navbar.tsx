@@ -55,9 +55,11 @@ export default function Navbar({ onBookConsultation }: NavbarProps) {
     const id = href.replace("#", "")
     const el = document.getElementById(id)
     if (!el) return
-    lenis
-      ? lenis.scrollTo(el, { offset: -NAVBAR_HEIGHT, duration: 1.4 })
-      : el.scrollIntoView({ behavior: "smooth" })
+    if (lenis) {
+      lenis.scrollTo(el, { offset: -NAVBAR_HEIGHT, duration: 1.4 })
+    } else {
+      el.scrollIntoView({ behavior: "smooth" })
+    }
   }
 
   return (
