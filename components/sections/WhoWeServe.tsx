@@ -15,7 +15,7 @@ export default function WhoWeServe() {
   const toggle = (i: number) => setOpen(open === i ? null : i)
 
   return (
-    <section id="who-we-serve" className="bg-[#fdf8f9] bg-dot-grid section-pad">
+    <section id="who-we-serve" className="bg-white bg-dot-grid section-pad">
       <div className="max-w-7xl mx-auto">
       <motion.p
         variants={fadeUp}

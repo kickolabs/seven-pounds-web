@@ -6,7 +6,7 @@ import { fadeUp, defaultViewport } from "@/lib/animations"
 
 export default function Disclaimer() {
   return (
-    <section id="disclaimer" className="px-4 sm:px-6 md:px-8 lg:px-16 py-10 sm:py-14 bg-[#fdf8f9] border-t border-rose-100/60">
+    <section id="disclaimer" className="px-4 sm:px-6 md:px-8 lg:px-16 py-10 sm:py-14 bg-white border-t border-slate-100">
       <div className="max-w-4xl mx-auto">
         <motion.div
           variants={fadeUp}

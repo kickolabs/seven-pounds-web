@@ -81,9 +81,9 @@ export default function CoreServices() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="services" className="relative bg-[#fdf8f9] bg-dot-grid">
+    <section ref={sectionRef} id="services" className="relative bg-white bg-dot-grid">
       {/* Desktop — GSAP pinned. Left heading is static (no Framer inside GSAP context) */}
-      <div ref={triggerRef} className="hidden lg:flex h-screen items-center overflow-hidden bg-[#fdf8f9]">
+      <div ref={triggerRef} className="hidden lg:flex h-screen items-center overflow-hidden bg-white">
         <div className="max-w-7xl mx-auto px-8 w-full grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
 
           {/* Left — static heading (no whileInView inside pinned GSAP container) */}

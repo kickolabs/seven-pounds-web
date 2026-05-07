@@ -34,7 +34,7 @@ export default function OurApproach() {
   const point = APPROACH_POINTS[active]
 
   return (
-    <section id="approach" className="bg-[#fdf8f9] bg-dot-grid section-pad">
+    <section id="approach" className="bg-white bg-dot-grid section-pad">
       <div className="max-w-7xl mx-auto">
       <motion.p
         variants={fadeUp}

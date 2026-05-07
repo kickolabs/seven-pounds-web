@@ -52,7 +52,7 @@ export default function NewLaunchSchemes({ onGetStarted }: NewLaunchSchemesProps
   }
 
   return (
-    <section id="plans" className="section-pad bg-[#fdf8f9] bg-dot-grid">
+    <section id="plans" className="section-pad bg-white bg-dot-grid">
       <div className="max-w-7xl mx-auto">
 
         {/* Heading */}
