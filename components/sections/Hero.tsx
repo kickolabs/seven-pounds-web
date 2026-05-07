@@ -4,13 +4,11 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { SPRING } from "@/lib/animations"
+import { useOpenModal } from "@/components/shared/HomeClient"
 
-interface HeroProps {
-  onBookConsultation: () => void
-  onLearnMore: () => void
-}
-
-export default function Hero({ onBookConsultation, onLearnMore }: HeroProps) {
+export default function Hero() {
+  const openModal = useOpenModal()
+  const scrollToContact = () => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
   return (
     <section
       id="hero"
@@ -83,14 +81,14 @@ export default function Hero({ onBookConsultation, onLearnMore }: HeroProps) {
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
           >
             <button
-              onClick={onBookConsultation}
+              onClick={openModal}
               className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-brand text-white text-sm font-semibold tracking-wide hover:bg-brand-600 transition-all duration-300 shadow-glow-rose hover:shadow-glow-rose-lg group"
             >
               Get Help Now
               <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform duration-200" />
             </button>
             <button
-              onClick={onLearnMore}
+              onClick={scrollToContact}
               className="hidden sm:inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full border border-slate-200 bg-white/80 backdrop-blur-sm text-slate-700 text-sm font-medium tracking-wide hover:border-slate-400 hover:bg-white transition-all duration-300"
             >
               Talk to an Advisor

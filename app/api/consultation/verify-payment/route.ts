@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 import crypto from "crypto"
 import { createServiceClient } from "@/lib/supabase/server"
+import { checkRateLimit } from "@/lib/ratelimit"
+import { sendBookingNotification } from "@/lib/email"
 import { env } from "@/lib/env"
 
 const CORS_HEADERS = {
@@ -21,6 +23,15 @@ export async function OPTIONS() {
 }
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "anonymous"
+  const { allowed } = await checkRateLimit(`verify-payment:${ip}`)
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429, headers: CORS_HEADERS }
+    )
+  }
+
   try {
     const body = await req.json()
     const data = schema.parse(body)
@@ -36,10 +47,10 @@ export async function POST(req: NextRequest) {
 
     const supabase = await createServiceClient()
 
-    // Idempotency — return early if already processed (handles network retries)
+    // Idempotency — return early if already processed
     const { data: existing } = await supabase
       .from("consultations")
-      .select("id")
+      .select("id, name, email, phone, plan_selected, payment_status")
       .eq("razorpay_payment_id", data.razorpay_payment_id)
       .maybeSingle()
 
@@ -55,17 +66,26 @@ export async function POST(req: NextRequest) {
         razorpay_signature: data.razorpay_signature,
       })
       .eq("razorpay_order_id", data.razorpay_order_id)
-      .select("id")
+      .select("id, name, email, phone, plan_selected")
       .single()
 
     if (error) throw error
+
+    // Fire-and-forget email — don't block the response
+    sendBookingNotification({
+      name: updated.name,
+      email: updated.email,
+      phone: updated.phone,
+      plan: updated.plan_selected,
+      bookingId: updated.id,
+    }).catch((e) => console.error("Email send failed:", e instanceof Error ? e.message : "Unknown error"))
 
     return NextResponse.json({ success: true, bookingId: updated.id }, { headers: CORS_HEADERS })
   } catch (err) {
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: err.errors }, { status: 400, headers: CORS_HEADERS })
     }
-    console.error("Verify payment error:", err)
-    return NextResponse.json({ error: "Internal server error" }, { status: 500, headers: CORS_HEADERS })
+    console.error("Verify payment error:", err instanceof Error ? err.message : "Unknown error")
+    return NextResponse.json({ error: "Payment verification failed. Please try again." }, { status: 500, headers: CORS_HEADERS })
   }
 }

@@ -25,28 +25,6 @@
     --ring: 346 100% 58%;
     --radius: 0.5rem;
   }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 346 100% 58%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 346 100% 58%;
-  }
 }
 
 @layer base {
@@ -63,10 +41,8 @@
     -webkit-font-smoothing: antialiased;
   }
 
-  /* Headings — comfortable leading, slight negative tracking, balanced wrapping */
+  /* Headings — slight negative tracking, balanced wrapping */
   h1, h2, h3, h4, h5, h6 {
-    text-transform: capitalize;
-    line-height: 1.45;
     letter-spacing: -0.025em;
     text-wrap: balance;
   }
@@ -76,7 +52,6 @@
     line-height: 1.8;
     letter-spacing: 0.01em;
     text-wrap: pretty;
-    max-width: 70ch;
   }
 
   /* Paragraphs inside prose containers get vertical rhythm */
@@ -88,42 +63,42 @@
 @layer components {
   /* Hero h1 — 30px mobile → 48px sm → 56px xl */
   .type-display {
-    @apply text-3xl sm:text-5xl xl:text-[3.5rem] leading-[1.45] tracking-tight;
+    @apply text-3xl sm:text-5xl xl:text-[3.5rem] tracking-tight text-ink-high !leading-[1.15];
   }
 
   /* Section h2 — 24px mobile → 30px sm → 36px md → 48px lg */
   .type-heading {
-    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.45] tracking-tight;
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-ink-high !leading-[1.4];
   }
 
-  /* Large feature h3 (GSAP/desktop only) — 24px → 30px → 36px */
+  /* Large feature h3 — 24px → 30px → 36px */
   .type-subheading {
-    @apply text-2xl md:text-3xl lg:text-4xl leading-[1.45] tracking-tight;
+    @apply text-2xl md:text-3xl lg:text-4xl tracking-tight text-ink-high !leading-[1.4];
   }
 
   /* Component / card h3 — 20px mobile → 24px sm */
   .type-card-heading {
-    @apply text-xl sm:text-2xl leading-[1.5];
+    @apply text-xl sm:text-2xl text-ink-high;
   }
 
   /* Accordion / list item heading — 14px mobile → 16px desktop */
   .type-item-heading {
-    @apply text-sm sm:text-base leading-[1.4];
+    @apply text-sm sm:text-base leading-[1.4] text-ink-high;
   }
 
   /* Section descriptive paragraphs — 16px mobile → 18px desktop */
   .type-body-lg {
-    @apply text-base sm:text-lg leading-[1.85];
+    @apply text-base sm:text-lg leading-[1.85] text-ink-body;
   }
 
   /* Standard body — 14px mobile → 16px desktop */
   .type-body {
-    @apply text-sm sm:text-base leading-[1.8];
+    @apply text-sm sm:text-base leading-[2.5] text-ink-body;
   }
 
-  /* ALL-CAPS section eyebrow labels — 10px */
+  /* ALL-CAPS section eyebrow labels — 12px */
   .type-eyebrow {
-    @apply text-[10px] uppercase tracking-widest font-medium leading-none;
+    @apply text-[12px] uppercase tracking-widest font-medium leading-none text-ink-muted;
   }
 }
 
@@ -203,37 +178,3 @@ html {
   background: #e6002e;
 }
 
-/* Ambient background orbs — GPU-composited, no JS */
-.bg-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  will-change: transform;
-  pointer-events: none;
-}
-.bg-orb-1 {
-  width: min(700px, 90vw);
-  height: min(700px, 90vw);
-  background: radial-gradient(circle, rgba(255,45,85,0.35) 0%, rgba(255,45,85,0.12) 40%, transparent 70%);
-  top: -15%;
-  left: -15%;
-  animation: orbFloat1 20s ease-in-out infinite;
-}
-.bg-orb-2 {
-  width: min(600px, 80vw);
-  height: min(600px, 80vw);
-  background: radial-gradient(circle, rgba(255,45,85,0.22) 0%, rgba(255,45,85,0.07) 40%, transparent 70%);
-  bottom: -15%;
-  right: -15%;
-  animation: orbFloat2 25s ease-in-out infinite;
-}
-@keyframes orbFloat1 {
-  0%, 100% { transform: translate(0, 0); }
-  33%       { transform: translate(40px, 25px); }
-  66%       { transform: translate(-25px, 40px); }
-}
-@keyframes orbFloat2 {
-  0%, 100% { transform: translate(0, 0); }
-  33%       { transform: translate(-40px, -30px); }
-  66%       { transform: translate(30px, -45px); }
-}

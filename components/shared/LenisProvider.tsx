@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState, createContext, useContext } from "react"
+import { MotionConfig } from "framer-motion"
 import Lenis from "lenis"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -40,7 +41,9 @@ export default function LenisProvider({ children }: { children: React.ReactNode 
 
   return (
     <LenisContext.Provider value={lenis}>
-      {children}
+      <MotionConfig reducedMotion="user">
+        {children}
+      </MotionConfig>
     </LenisContext.Provider>
   )
 }

@@ -1,7 +1,10 @@
-import { redirect } from "next/navigation"
-import { createClient, createServiceClient } from "@/lib/supabase/server"
+import { revalidatePath } from "next/cache"
+import { createServiceClient } from "@/lib/supabase/server"
+import { Search, ChevronLeft, ChevronRight } from "lucide-react"
 
 export const dynamic = "force-dynamic"
+
+const PAGE_SIZE = 20
 
 type Consultation = {
   id: string
@@ -15,33 +18,94 @@ type Consultation = {
 }
 
 const statusColors: Record<string, string> = {
-  paid: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-  pending: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
-  failed: "bg-red-500/10 text-red-400 border-red-500/20",
+  paid:      "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+  completed: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+  pending:   "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
+  failed:    "bg-red-500/10 text-red-400 border-red-500/20",
 }
 
-export default async function LeadsPage() {
-  const authClient = await createClient()
-  const { data: { user } } = await authClient.auth.getUser()
-  if (!user) redirect("/admin/login")
+function formatDate(iso: string) {
+  return new Intl.DateTimeFormat("en-IN", {
+    dateStyle: "medium",
+    timeStyle: "short",
+  }).format(new Date(iso))
+}
+
+export default async function LeadsPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string; q?: string }>
+}) {
+  const { page: pageParam, q } = await searchParams
+  const page = Math.max(1, parseInt(pageParam ?? "1", 10))
+  const offset = (page - 1) * PAGE_SIZE
+
+  async function markComplete(formData: FormData) {
+    "use server"
+    const id = formData.get("id") as string
+    const supabase = await createServiceClient()
+    await supabase
+      .from("consultations")
+      .update({ payment_status: "completed" })
+      .eq("id", id)
+    revalidatePath("/admin/leads")
+  }
 
   const supabase = await createServiceClient()
-  const { data, error } = await supabase
+
+  let query = supabase
     .from("consultations")
-    .select("id, name, email, phone, plan_selected, payment_status, razorpay_order_id, created_at")
+    .select("id, name, email, phone, plan_selected, payment_status, razorpay_order_id, created_at", { count: "exact" })
     .order("created_at", { ascending: false })
+    .range(offset, offset + PAGE_SIZE - 1)
+
+  if (q) {
+    query = query.or(`name.ilike.%${q}%,email.ilike.%${q}%,phone.ilike.%${q}%`)
+  }
+
+  const { data, count, error } = await query
 
   if (error) {
     return <p className="text-red-400">Failed to load consultations: {error.message}</p>
   }
 
   const consultations = (data ?? []) as Consultation[]
+  const totalPages = Math.ceil((count ?? 0) / PAGE_SIZE)
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-xl font-semibold text-white">Consultations</h1>
-        <span className="text-sm text-slate-500">{consultations.length} total</span>
+      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 className="text-xl font-semibold text-white">Consultations</h1>
+          <p className="text-sm text-slate-500 mt-0.5">{count ?? 0} total</p>
+        </div>
+
+        {/* Search */}
+        <form method="GET" className="flex items-center gap-2">
+          <div className="relative">
+            <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
+            <input
+              name="q"
+              defaultValue={q ?? ""}
+              placeholder="Search name, email, phone…"
+              className="pl-8 pr-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-brand w-64"
+            />
+          </div>
+          <button
+            type="submit"
+            className="px-4 py-2 rounded-xl bg-slate-800 border border-slate-700 text-sm text-slate-300 hover:text-white hover:border-slate-600 transition-colors"
+          >
+            Search
+          </button>
+          {q && (
+            <a
+              href="/admin/leads"
+              className="px-3 py-2 rounded-xl text-sm text-slate-500 hover:text-slate-300 transition-colors"
+            >
+              Clear
+            </a>
+          )}
+        </form>
       </div>
 
       <div className="bg-slate-900 rounded-2xl border border-slate-800 overflow-hidden">
@@ -55,12 +119,16 @@ export default async function LeadsPage() {
                 <th className="px-6 py-4">Plan</th>
                 <th className="px-6 py-4">Status</th>
                 <th className="px-6 py-4">Date</th>
+                <th className="px-6 py-4">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800">
               {consultations.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-6 py-12 text-center text-slate-500">No consultations yet</td>
+                  <td colSpan={7} className="px-6 py-16 text-center">
+                    <p className="text-slate-400 font-medium">No consultations yet</p>
+                    <p className="text-slate-600 text-xs mt-1">Records will appear here once payments are made</p>
+                  </td>
                 </tr>
               ) : (
                 consultations.map((row) => (
@@ -74,10 +142,21 @@ export default async function LeadsPage() {
                         {row.payment_status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-slate-500 text-xs">
-                      {new Date(row.created_at).toLocaleDateString("en-IN", {
-                        day: "2-digit", month: "short", year: "numeric",
-                      })}
+                    <td className="px-6 py-4 text-slate-500 text-xs whitespace-nowrap">
+                      {formatDate(row.created_at)}
+                    </td>
+                    <td className="px-6 py-4">
+                      {row.payment_status === "paid" && (
+                        <form action={markComplete}>
+                          <input type="hidden" name="id" value={row.id} />
+                          <button
+                            type="submit"
+                            className="text-xs px-3 py-1 rounded-full border border-slate-700 text-slate-400 hover:border-blue-500 hover:text-blue-400 transition-colors"
+                          >
+                            Mark complete
+                          </button>
+                        </form>
+                      )}
                     </td>
                   </tr>
                 ))
@@ -85,6 +164,41 @@ export default async function LeadsPage() {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="px-6 py-4 border-t border-slate-800 flex items-center justify-between">
+            <span className="text-xs text-slate-500">
+              Page {page} of {totalPages}
+            </span>
+            <div className="flex items-center gap-2">
+              {page > 1 ? (
+                <a
+                  href={`/admin/leads?page=${page - 1}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-700 text-slate-400 hover:text-white hover:border-slate-500 text-xs transition-colors"
+                >
+                  <ChevronLeft size={13} /> Previous
+                </a>
+              ) : (
+                <span className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-800 text-slate-700 text-xs cursor-not-allowed">
+                  <ChevronLeft size={13} /> Previous
+                </span>
+              )}
+              {page < totalPages ? (
+                <a
+                  href={`/admin/leads?page=${page + 1}${q ? `&q=${encodeURIComponent(q)}` : ""}`}
+                  className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-700 text-slate-400 hover:text-white hover:border-slate-500 text-xs transition-colors"
+                >
+                  Next <ChevronRight size={13} />
+                </a>
+              ) : (
+                <span className="flex items-center gap-1 px-3 py-1.5 rounded-lg border border-slate-800 text-slate-700 text-xs cursor-not-allowed">
+                  Next <ChevronRight size={13} />
+                </span>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

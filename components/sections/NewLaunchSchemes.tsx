@@ -28,11 +28,7 @@ const TABS = [
 
 type TabId = (typeof TABS)[number]["id"]
 
-interface NewLaunchSchemesProps {
-  onGetStarted: () => void
-}
-
-export default function NewLaunchSchemes({ onGetStarted }: NewLaunchSchemesProps) {
+export default function NewLaunchSchemes() {
   const [active, setActive] = useState<TabId>("core")
   const [direction, setDirection] = useState(1)
 
@@ -118,6 +114,7 @@ export default function NewLaunchSchemes({ onGetStarted }: NewLaunchSchemesProps
                   <span>{label}</span>
                   {isActive && (
                     <motion.span
+                      aria-hidden="true"
                       layoutId="tab-active-pill"
                       className="absolute inset-0 rounded-full bg-white shadow-sm -z-10"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -146,7 +143,6 @@ export default function NewLaunchSchemes({ onGetStarted }: NewLaunchSchemesProps
                 key={i}
                 plan={plan}
                 size={currentTab.size}
-                onGetStarted={onGetStarted}
               />
             ))}
           </motion.div>

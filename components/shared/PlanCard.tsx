@@ -4,14 +4,15 @@ import { motion } from "framer-motion"
 import { Check } from "lucide-react"
 import type { Plan } from "@/lib/constants"
 import { cn } from "@/lib/utils"
+import { useOpenModal } from "@/components/shared/HomeClient"
 
 interface PlanCardProps {
   plan: Plan
   size?: "sm" | "lg"
-  onGetStarted?: () => void
 }
 
-export default function PlanCard({ plan, size = "sm", onGetStarted }: PlanCardProps) {
+export default function PlanCard({ plan, size = "sm" }: PlanCardProps) {
+  const openModal = useOpenModal()
   const isLg = size === "lg"
 
   return (
@@ -71,7 +72,7 @@ export default function PlanCard({ plan, size = "sm", onGetStarted }: PlanCardPr
 
         {/* CTA */}
         <button
-          onClick={onGetStarted}
+          onClick={openModal}
           className={cn(
             "w-full font-bold tracking-widest uppercase transition-all duration-500 active:scale-95 bg-slate-950 text-white group-hover:bg-white group-hover:text-brand group-hover:shadow-lg",
             isLg ? "py-4 rounded-2xl text-xs" : "py-3.5 rounded-xl text-xs"

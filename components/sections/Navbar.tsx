@@ -5,16 +5,14 @@ import { motion, AnimatePresence, useMotionValue, useTransform, useMotionTemplat
 import { NAV_LINKS, NAVBAR_HEIGHT } from "@/lib/constants"
 import { useLenis } from "@/components/shared/LenisProvider"
 import { SPRING } from "@/lib/animations"
-
-interface NavbarProps {
-  onBookConsultation: () => void
-}
+import { useOpenModal } from "@/components/shared/HomeClient"
 
 // About, Services | ← brand slides in here → | Plans, Contact
 const LEFT_LINKS  = NAV_LINKS.slice(0, 2)
 const RIGHT_LINKS = NAV_LINKS.slice(2)
 
-export default function Navbar({ onBookConsultation }: NavbarProps) {
+export default function Navbar() {
+  const openModal = useOpenModal()
   const [mobileOpen, setMobileOpen] = useState(false)
   const lenis = useLenis()
 
@@ -144,7 +142,7 @@ export default function Navbar({ onBookConsultation }: NavbarProps) {
         <div className="flex-1 flex justify-end items-center gap-4">
           <div className="hidden md:flex">
             <button
-              onClick={onBookConsultation}
+              onClick={openModal}
               className="px-6 py-3 rounded-full text-white text-sm font-medium
                 transition-all hover:opacity-90 active:scale-95 whitespace-nowrap"
               style={{
@@ -160,7 +158,9 @@ export default function Navbar({ onBookConsultation }: NavbarProps) {
           {/* Mobile hamburger */}
           <button
             onClick={() => setMobileOpen((v) => !v)}
-            aria-label="Toggle menu"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
             className="md:hidden w-[46px] h-[46px] flex items-center justify-center rounded-full"
             style={{
               background: "rgba(255,255,255,0.25)",
@@ -194,6 +194,7 @@ export default function Navbar({ onBookConsultation }: NavbarProps) {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
@@ -213,7 +214,7 @@ export default function Navbar({ onBookConsultation }: NavbarProps) {
               ))}
             </div>
             <button
-              onClick={() => { setMobileOpen(false); onBookConsultation() }}
+              onClick={() => { setMobileOpen(false); openModal() }}
               className="w-full mt-5 px-6 py-3.5 rounded-full bg-brand text-white text-sm font-semibold tracking-wide"
             >
               Book Consultation

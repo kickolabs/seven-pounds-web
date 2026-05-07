@@ -73,6 +73,7 @@ export default function WhoWeServe() {
                 onClick={() => toggle(i)}
                 className="w-full flex items-start gap-4 p-5 sm:p-6 text-left focus-visible:outline-none"
                 aria-expanded={isOpen}
+                aria-controls={`who-panel-${i}`}
               >
                 {/* Icon */}
                 <div className={`shrink-0 mt-0.5 w-9 h-9 flex items-center justify-center rounded-xl transition-colors duration-300 ${
@@ -102,6 +103,7 @@ export default function WhoWeServe() {
               <AnimatePresence initial={false}>
                 {isOpen && (
                   <motion.div
+                    id={`who-panel-${i}`}
                     key="body"
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: "auto", opacity: 1 }}

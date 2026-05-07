@@ -1,15 +1,13 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { BadgeCheck, CircleSlash, Lock, Fingerprint, Target, ChevronLeft, ChevronRight } from "lucide-react"
 import { WHY_CHOOSE_US } from "@/lib/constants"
 import { fadeUp, staggerContainer, defaultViewport } from "@/lib/animations"
+import { useCarousel } from "@/lib/hooks/useCarousel"
 
 const iconMap = { BadgeCheck, CircleSlash, Lock, Fingerprint, Target } as const
 type IconName = keyof typeof iconMap
-
-const SLIDE_INTERVAL = 4000
 
 const slideVariants = {
   enter: (dir: number) => ({ opacity: 0, x: dir * 60 }),
@@ -18,21 +16,7 @@ const slideVariants = {
 }
 
 export default function WhyChooseUs() {
-  const [active, setActive] = useState(0)
-  const [direction, setDirection] = useState(1)
-
-  const go = useCallback((idx: number) => {
-    setDirection(idx > active ? 1 : -1)
-    setActive(idx)
-  }, [active])
-
-  const prev = () => go((active - 1 + WHY_CHOOSE_US.length) % WHY_CHOOSE_US.length)
-  const next = useCallback(() => go((active + 1) % WHY_CHOOSE_US.length), [active, go])
-
-  useEffect(() => {
-    const id = setTimeout(next, SLIDE_INTERVAL)
-    return () => clearTimeout(id)
-  }, [next])
+  const { active, direction, go, prev, next } = useCarousel(WHY_CHOOSE_US.length)
 
   const item = WHY_CHOOSE_US[active]
   const Icon = iconMap[item.icon as IconName] ?? BadgeCheck
@@ -76,6 +60,9 @@ export default function WhyChooseUs() {
         <div className="sm:hidden">
           <div className="glow-card">
             <div className="bg-slate-950 rounded-[18px] p-6 flex flex-col gap-5">
+              <div aria-live="polite" aria-atomic="true" className="sr-only">
+                {item.title}: {item.desc}
+              </div>
               <AnimatePresence custom={direction} mode="wait">
                 <motion.div
                   key={active}

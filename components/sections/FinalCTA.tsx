@@ -3,12 +3,10 @@
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { fadeUp, ctaContainer, defaultViewport } from "@/lib/animations"
+import { useOpenModal } from "@/components/shared/HomeClient"
 
-interface FinalCTAProps {
-  onBookConsultation: () => void
-}
-
-export default function FinalCTA({ onBookConsultation }: FinalCTAProps) {
+export default function FinalCTA() {
+  const openModal = useOpenModal()
   return (
     <section id="cta" className="section-pad bg-white bg-dot-grid">
       <div className="max-w-4xl mx-auto">
@@ -41,7 +39,7 @@ export default function FinalCTA({ onBookConsultation }: FinalCTAProps) {
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.2 }}
-              onClick={onBookConsultation}
+              onClick={openModal}
               className="inline-flex items-center gap-2.5 w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-white text-slate-900 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-brand hover:text-white transition-colors duration-400 shadow-lg hover:shadow-glow-rose group"
             >
               Book a Free Consultation

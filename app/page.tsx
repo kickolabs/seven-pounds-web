@@ -1,6 +1,3 @@
-"use client"
-
-import { useState } from "react"
 import Navbar from "@/components/sections/Navbar"
 import Hero from "@/components/sections/Hero"
 import OurApproach from "@/components/sections/OurApproach"
@@ -9,43 +6,32 @@ import NewLaunchSchemes from "@/components/sections/NewLaunchSchemes"
 import WhoWeServe from "@/components/sections/WhoWeServe"
 import WhyChooseUs from "@/components/sections/WhyChooseUs"
 import ContactSection from "@/components/sections/ContactSection"
-import Disclaimer from "@/components/sections/Disclaimer"
 import FinalCTA from "@/components/sections/FinalCTA"
+import Disclaimer from "@/components/sections/Disclaimer"
 import Footer from "@/components/sections/Footer"
-import ConsultationModal from "@/components/shared/ConsultationModal"
+import HomeClient from "@/components/shared/HomeClient"
 import ErrorBoundary from "@/components/shared/ErrorBoundary"
 
 export default function HomePage() {
-  const [modalOpen, setModalOpen] = useState(false)
-
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
-
-  const scrollToContact = () => {
-    const el = document.getElementById("contact")
-    if (el) el.scrollIntoView({ behavior: "smooth" })
-  }
-
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-rose-500/25 overflow-x-hidden">
-      <Navbar onBookConsultation={openModal} />
-
-      <Hero onBookConsultation={openModal} onLearnMore={scrollToContact} />
-      <OurApproach />
-      <ErrorBoundary>
-        <CoreServices />
-      </ErrorBoundary>
-      <ErrorBoundary>
-        <NewLaunchSchemes onGetStarted={openModal} />
-      </ErrorBoundary>
-      <WhoWeServe />
-      <WhyChooseUs />
-      <ContactSection />
-      <FinalCTA onBookConsultation={openModal} />
-      <Disclaimer />
-      <Footer />
-
-<ConsultationModal open={modalOpen} onClose={closeModal} />
-    </div>
+    <HomeClient>
+      <div className="min-h-screen bg-white text-slate-900 selection:bg-rose-500/25 overflow-x-hidden">
+        <Navbar />
+        <Hero />
+        <OurApproach />
+        <ErrorBoundary>
+          <CoreServices />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <NewLaunchSchemes />
+        </ErrorBoundary>
+        <WhoWeServe />
+        <WhyChooseUs />
+        <ContactSection />
+        <FinalCTA />
+        <Disclaimer />
+        <Footer />
+      </div>
+    </HomeClient>
   )
 }

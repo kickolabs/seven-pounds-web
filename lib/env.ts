@@ -8,10 +8,11 @@ function require(key: string): string {
 }
 
 export const env = {
-  supabaseUrl:          require("NEXT_PUBLIC_SUPABASE_URL"),
-  supabaseAnonKey:      require("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
-  supabaseServiceKey:   require("SUPABASE_SERVICE_ROLE_KEY"),
-  razorpayKeyId:        require("NEXT_PUBLIC_RAZORPAY_KEY_ID"),
-  razorpayKeySecret:    require("RAZORPAY_KEY_SECRET"),
-  siteUrl:              process.env.NEXT_PUBLIC_SITE_URL ?? "https://thesevenpounds.in",
+  supabaseUrl:            require("NEXT_PUBLIC_SUPABASE_URL"),
+  supabaseAnonKey:        require("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
+  supabaseServiceKey:     require("SUPABASE_SERVICE_ROLE_KEY"),
+  razorpayKeyId:          require("NEXT_PUBLIC_RAZORPAY_KEY_ID"),
+  razorpayKeySecret:      require("RAZORPAY_KEY_SECRET"),
+  razorpayWebhookSecret:  process.env.RAZORPAY_WEBHOOK_SECRET ?? "",
+  siteUrl:                process.env.NEXT_PUBLIC_SITE_URL ?? "https://thesevenpounds.in",
 } as const

@@ -4,7 +4,7 @@ import { useState, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import { Loader2, CheckCircle, CreditCard } from "lucide-react"
+import { Loader2, CheckCircle, CreditCard, WifiOff, RefreshCw } from "lucide-react"
 import {
   Dialog,
   DialogContent,
@@ -55,7 +55,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-type Step = "form" | "processing" | "success"
+type Step = "form" | "processing" | "gateway-error" | "success"
 
 interface ConsultationModalProps {
   open: boolean
@@ -111,12 +111,8 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
 
     try {
       const loaded = await loadRazorpayScript()
-      if (!loaded) throw new Error("Razorpay failed to load")
-
-      if (!window.Razorpay) {
-        toast({ title: "Payment gateway unavailable", description: "Please try again.", variant: "destructive" })
-        setStep("form")
-        startCooldown()
+      if (!loaded || !window.Razorpay) {
+        setStep("gateway-error")
         return
       }
 
@@ -255,6 +251,35 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
             <DialogTitle className="sr-only">Processing payment</DialogTitle>
             <Loader2 size={40} className="animate-spin text-brand" />
             <p className="text-slate-600 font-medium">Opening payment gateway…</p>
+          </div>
+        )}
+
+        {step === "gateway-error" && (
+          <div aria-live="assertive" className="flex flex-col items-center justify-center gap-4 py-12 text-center">
+            <DialogTitle className="sr-only">Payment gateway unavailable</DialogTitle>
+            <WifiOff size={40} className="text-slate-400" />
+            <div>
+              <p className="font-semibold text-slate-800 mb-1">Payment gateway unavailable</p>
+              <p className="text-sm text-slate-500">This may be a network issue. Please retry.</p>
+            </div>
+            <button
+              onClick={async () => {
+                setStep("processing")
+                const loaded = await loadRazorpayScript()
+                if (!loaded || !window.Razorpay) {
+                  setStep("gateway-error")
+                } else {
+                  setStep("form")
+                }
+              }}
+              className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-brand text-white text-sm font-semibold hover:bg-brand-600 transition-colors"
+            >
+              <RefreshCw size={14} />
+              Retry
+            </button>
+            <button onClick={() => setStep("form")} className="text-sm text-slate-400 hover:text-slate-600 transition-colors">
+              Go back
+            </button>
           </div>
         )}
 

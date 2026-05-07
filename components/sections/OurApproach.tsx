@@ -1,29 +1,13 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { APPROACH_POINTS } from "@/lib/constants"
 import { fadeUp, defaultViewport } from "@/lib/animations"
-
-const SLIDE_INTERVAL = 4000
+import { useCarousel } from "@/lib/hooks/useCarousel"
 
 export default function OurApproach() {
-  const [active, setActive] = useState(0)
-  const [direction, setDirection] = useState(1)
-
-  const go = useCallback((idx: number) => {
-    setDirection(idx > active ? 1 : -1)
-    setActive(idx)
-  }, [active])
-
-  const prev = () => go((active - 1 + APPROACH_POINTS.length) % APPROACH_POINTS.length)
-  const next = useCallback(() => go((active + 1) % APPROACH_POINTS.length), [active, go])
-
-  useEffect(() => {
-    const id = setTimeout(next, SLIDE_INTERVAL)
-    return () => clearTimeout(id)
-  }, [next])
+  const { active, direction, go, prev, next } = useCarousel(APPROACH_POINTS.length)
 
   const variants = {
     enter: (dir: number) => ({ opacity: 0, x: dir * 60 }),
@@ -69,6 +53,9 @@ export default function OurApproach() {
 
       {/* Carousel */}
       <div className="relative overflow-hidden rounded-3xl border border-slate-100 bg-slate-50 px-6 sm:px-12 md:px-16 py-10 sm:py-14">
+        <div aria-live="polite" aria-atomic="true" className="sr-only">
+          Step {point.number}: {point.title}
+        </div>
         <AnimatePresence custom={direction} mode="wait">
           <motion.div
             key={active}
@@ -80,10 +67,10 @@ export default function OurApproach() {
             transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
             className="min-h-[160px] flex flex-col justify-center"
           >
-            <span className="type-eyebrow text-slate-300 mb-4 block">{point.number}</span>
+            <span className="type-eyebrow mb-4 block">{point.number}</span>
             <div className="w-8 h-px bg-brand mb-6" />
-            <h3 className="type-card-heading font-semibold text-slate-900 mb-4">{point.title}</h3>
-            <p className="type-body text-slate-400 max-w-2xl">{point.desc}</p>
+            <h3 className="type-card-heading font-semibold mb-4">{point.title}</h3>
+            <p className="type-body max-w-2xl">{point.desc}</p>
           </motion.div>
         </AnimatePresence>
 

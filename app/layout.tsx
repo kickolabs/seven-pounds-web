@@ -6,6 +6,20 @@ import { SITE_METADATA } from "@/lib/constants";
 import LenisProvider from "@/components/shared/LenisProvider";
 import { Toaster } from "@/components/ui/toaster";
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FinancialService",
+  name: SITE_METADATA.name,
+  description: SITE_METADATA.description,
+  url: SITE_METADATA.url,
+  areaServed: {
+    "@type": "Country",
+    name: "India",
+  },
+  currenciesAccepted: "INR",
+  priceRange: "₹₹",
+};
+
 export const metadata: Metadata = {
   title: {
     default: `${SITE_METADATA.name} — ${SITE_METADATA.tagline}`,
@@ -47,10 +61,14 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <LenisProvider>
           {children}
         </LenisProvider>
-<Toaster />
+        <Toaster />
       </body>
     </html>
   );
