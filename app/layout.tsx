@@ -4,7 +4,6 @@ import "./globals.css";
 import { inter } from "@/lib/fonts";
 import { SITE_METADATA } from "@/lib/constants";
 import LenisProvider from "@/components/shared/LenisProvider";
-import AnimatedBackground from "@/components/shared/AnimatedBackground";
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
@@ -51,8 +50,7 @@ export default function RootLayout({
         <LenisProvider>
           {children}
         </LenisProvider>
-        <AnimatedBackground />
-        <Toaster />
+<Toaster />
       </body>
     </html>
   );
