@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 import { getRazorpay } from "@/lib/razorpay"
-import type { Orders } from "razorpay"
 import { createServiceClient } from "@/lib/supabase/server"
 import { CONSULTATION_FEE_PAISE } from "@/lib/constants"
 import { env } from "@/lib/env"
@@ -31,13 +30,14 @@ export async function POST(req: NextRequest) {
 
     // 1. Create Razorpay order (critical — must succeed)
     const razorpay = getRazorpay()
-    let order: Orders.RazorpayOrder
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let order: any
     try {
       order = await razorpay.orders.create({
         amount: CONSULTATION_FEE_PAISE,
         currency: "INR",
         receipt: `consult_${Date.now()}`,
-      }) as unknown as Orders.RazorpayOrder
+      })
     } catch (rzpErr) {
       console.error("Razorpay order creation failed:", rzpErr)
       return NextResponse.json(
