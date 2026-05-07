@@ -10,7 +10,7 @@ interface FinalCTAProps {
 
 export default function FinalCTA({ onBookConsultation }: FinalCTAProps) {
   return (
-    <section id="cta" className="section-pad bg-white bg-dot-grid">
+    <section id="cta" className="section-pad bg-[#fdf8f9] bg-dot-grid">
       <div className="max-w-4xl mx-auto">
         <motion.div
           variants={ctaContainer}

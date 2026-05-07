@@ -14,7 +14,7 @@ export default function Hero({ onBookConsultation, onLearnMore }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative bg-white overflow-hidden"
+      className="relative bg-transparent overflow-hidden"
     >
       {/* Background image — all screen sizes */}
       <motion.div
@@ -37,17 +37,17 @@ export default function Hero({ onBookConsultation, onLearnMore }: HeroProps) {
       {/* Mobile gradient: white at top → transparent at bottom so character shows */}
       <div className="lg:hidden absolute inset-0 z-10 pointer-events-none
         bg-gradient-to-b
-        from-white from-[30%]
-        via-white/75 via-[55%]
+        from-[#fff5f7] from-[30%]
+        via-[#fff5f7]/75 via-[55%]
         to-transparent to-[85%]"
       />
 
       {/* Desktop gradient: transparent left → white right */}
       <div className="hidden lg:block absolute inset-0 z-10 pointer-events-none
         bg-gradient-to-r
-        from-white/0 from-[30%]
-        via-white/70 via-[50%]
-        to-white to-[62%]"
+        from-[#fff5f7]/0 from-[30%]
+        via-[#fff5f7]/70 via-[50%]
+        to-[#fff5f7] to-[62%]"
       />
 
       {/* Desktop: background accent */}

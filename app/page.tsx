@@ -27,7 +27,7 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-slate-900 selection:bg-rose-500/25 overflow-x-hidden">
+    <div className="min-h-screen text-slate-900 selection:bg-rose-500/25 overflow-x-hidden" style={{ background: "linear-gradient(to bottom, #ffe4ea 0%, #fff5f7 12%, #fdf8f9 30%, #fdf8f9 100%)" }}>
       <Navbar onBookConsultation={openModal} />
 
       <Hero onBookConsultation={openModal} onLearnMore={scrollToContact} />
