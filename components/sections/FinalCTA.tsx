@@ -25,7 +25,7 @@ export default function FinalCTA() {
             <motion.p variants={fadeUp} className="type-eyebrow text-white/60 mb-6">
               Ready to start?
             </motion.p>
-            <motion.h2 variants={fadeUp} className="type-heading font-medium mb-6">
+            <motion.h2 variants={fadeUp} className="type-heading font-medium mb-6 text-white">
               Your financial reset
               <br />
               <span className="text-brand">starts here.</span>

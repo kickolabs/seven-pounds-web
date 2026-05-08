@@ -122,7 +122,13 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
         body: JSON.stringify(data),
       })
 
-      if (!orderRes.ok) throw new Error("Order creation failed")
+      if (!orderRes.ok) {
+        const body = await orderRes.json().catch(() => ({}))
+        const msg = body?.error
+          ? typeof body.error === "string" ? body.error : JSON.stringify(body.error)
+          : `Order creation failed (${orderRes.status})`
+        throw new Error(msg)
+      }
       const { orderId, amount, currency, keyId } = await orderRes.json()
 
       const options: RazorpayOptions = {
@@ -165,8 +171,9 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
       const rzp = new window.Razorpay(options)
       rzp.open()
     } catch (err) {
-      console.error(err)
-      toast({ title: "Something went wrong", description: "Please try again.", variant: "destructive" })
+      const msg = err instanceof Error ? err.message : "Please try again."
+      console.error("Consultation error:", msg)
+      toast({ title: "Something went wrong", description: msg, variant: "destructive" })
       setStep("form")
       startCooldown()
     }
