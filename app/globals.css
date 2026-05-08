@@ -63,42 +63,42 @@
 @layer components {
   /* Hero h1 — 30px mobile → 48px sm → 56px xl */
   .type-display {
-    @apply text-3xl sm:text-5xl xl:text-[3.5rem] tracking-tight text-ink-high !leading-[1.15];
+    @apply text-3xl sm:text-5xl xl:text-[3.5rem] tracking-tight text-black !leading-[1.15];
   }
 
   /* Section h2 — 24px mobile → 30px sm → 36px md → 48px lg */
   .type-heading {
-    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-ink-high !leading-[1.4];
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tight text-black !leading-[1.4];
   }
 
   /* Large feature h3 — 24px → 30px → 36px */
   .type-subheading {
-    @apply text-2xl md:text-3xl lg:text-4xl tracking-tight text-ink-high !leading-[1.4];
+    @apply text-2xl md:text-3xl lg:text-4xl tracking-tight text-black !leading-[1.4];
   }
 
   /* Component / card h3 — 20px mobile → 24px sm */
   .type-card-heading {
-    @apply text-xl sm:text-2xl text-ink-high;
+    @apply text-xl sm:text-2xl text-black;
   }
 
   /* Accordion / list item heading — 14px mobile → 16px desktop */
   .type-item-heading {
-    @apply text-sm sm:text-base leading-[1.4] text-ink-high;
+    @apply text-sm sm:text-base leading-[1.4] text-black;
   }
 
   /* Section descriptive paragraphs — 16px mobile → 18px desktop */
   .type-body-lg {
-    @apply text-base sm:text-lg leading-[1.85] text-ink-body;
+    @apply text-base sm:text-lg leading-[1.85] text-grey;
   }
 
   /* Standard body — 14px mobile → 16px desktop */
   .type-body {
-    @apply text-sm sm:text-base leading-[2.5] text-ink-body;
+    @apply text-sm sm:text-base leading-[2.5] text-grey;
   }
 
   /* ALL-CAPS section eyebrow labels — 12px */
   .type-eyebrow {
-    @apply text-[12px] uppercase tracking-widest font-medium leading-none text-ink-muted;
+    @apply text-[12px] uppercase tracking-widest font-medium leading-none text-grey;
   }
 }
 

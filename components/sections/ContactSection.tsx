@@ -17,7 +17,7 @@ export default function ContactSection() {
               initial="hidden"
               whileInView="visible"
               viewport={defaultViewport}
-              className="type-eyebrow text-slate-400 mb-4"
+              className="type-eyebrow text-grey mb-4"
             >
               Let&apos;s talk
             </motion.p>
@@ -36,7 +36,7 @@ export default function ContactSection() {
               initial="hidden"
               whileInView="visible"
               viewport={defaultViewport}
-              className="type-body-lg text-slate-400 mb-10"
+              className="type-body-lg text-grey mb-10"
             >
               Tell us your situation. We reply within 24 hours — no strings attached.
             </motion.p>
@@ -57,7 +57,7 @@ export default function ContactSection() {
                 <motion.div
                   key={item}
                   variants={listItem}
-                  className="flex items-center gap-3 text-sm text-slate-500"
+                  className="flex items-center gap-3 text-sm text-grey"
                 >
                   <motion.div
                     initial={{ scale: 0 }}

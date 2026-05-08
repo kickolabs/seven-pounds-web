@@ -15,7 +15,7 @@ import ErrorBoundary from "@/components/shared/ErrorBoundary"
 export default function HomePage() {
   return (
     <HomeClient>
-      <div className="min-h-screen bg-white text-slate-900 selection:bg-rose-500/25 overflow-x-hidden">
+      <div className="min-h-screen bg-white text-black selection:bg-rose-500/25 overflow-x-hidden">
         <Navbar />
         <Hero />
         <OurApproach />

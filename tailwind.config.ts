@@ -18,13 +18,7 @@ const config: Config = {
           600: "#E6002E",
           700: "#C00027",
         },
-        // Text palette — change here to update the whole site
-        ink: {
-          high:  "#0f172a",  // headings & strong text  (→ type-heading, type-display …)
-          body:  "#566377",  // paragraphs & card text  (→ type-body, type-body-lg)
-          muted: "#64748b",  // labels & helper text    (→ type-eyebrow) — 4.54:1 on white, passes WCAG AA
-        },
-        danger: "#ef4444",   // form validation errors
+        grey:  "#555555",  // single grey for all secondary/muted text — 7.0:1 on white (WCAG AAA)
         border:      "hsl(var(--border))",
         input:       "hsl(var(--input))",
         ring:        "hsl(var(--ring))",

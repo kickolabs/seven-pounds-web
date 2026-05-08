@@ -59,7 +59,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: SPRING }}
-            className="type-display font-medium tracking-tight mb-6 text-slate-900"
+            className="type-display font-medium tracking-tight mb-6"
           >
             Too many EMIs.{" "}
             <span className="text-brand">One clear plan.</span>
@@ -69,7 +69,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.25, ease: SPRING }}
-            className="type-body text-slate-500 mb-8 max-w-md"
+            className="type-body mb-8 max-w-md"
           >
             The Seven Pounds restructures your EMIs, cuts the chaos, and puts you back in control — ethically and confidently.
           </motion.p>
@@ -89,7 +89,7 @@ export default function Hero() {
             </button>
             <button
               onClick={scrollToContact}
-              className="hidden sm:inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full border border-slate-200 bg-white/80 backdrop-blur-sm text-slate-700 text-sm font-medium tracking-wide hover:border-slate-400 hover:bg-white transition-all duration-300"
+              className="hidden sm:inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full border border-slate-200 bg-white/80 backdrop-blur-sm text-grey text-sm font-medium tracking-wide hover:border-slate-400 hover:bg-white transition-all duration-300"
             >
               Talk to an Advisor
             </button>
@@ -102,7 +102,7 @@ export default function Hero() {
             className="mt-8 flex flex-row items-center gap-4 flex-wrap"
           >
             {["100% ethical", "Strictly confidential", "Zero hidden charges"].map((badge) => (
-              <div key={badge} className="flex items-center gap-1.5 text-xs text-slate-500">
+              <div key={badge} className="flex items-center gap-1.5 text-xs text-grey">
                 <div className="w-1 h-1 rounded-full bg-brand" />
                 {badge}
               </div>
@@ -119,7 +119,7 @@ export default function Hero() {
         className="hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 z-20"
       >
         <div className="w-px h-10 bg-gradient-to-b from-slate-400 to-transparent" />
-        <span className="text-[10px] uppercase tracking-widest text-slate-500 font-medium">Scroll</span>
+        <span className="text-[10px] uppercase tracking-widest text-grey font-medium">Scroll</span>
       </motion.div>
     </section>
   )

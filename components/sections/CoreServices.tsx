@@ -87,14 +87,14 @@ export default function CoreServices() {
 
           {/* Left — static heading */}
           <div className="space-y-6">
-            <p className="type-eyebrow text-slate-400">
+            <p className="type-eyebrow text-grey">
               What we do
             </p>
             <h2 className="type-heading font-medium tracking-tight">
               Everything you need.{" "}
               <span className="text-brand">Nothing you don&apos;t.</span>
             </h2>
-            <p className="type-body-lg text-slate-400 max-w-sm">
+            <p className="type-body-lg text-grey max-w-sm">
               Expert financial support — structured, ethical, and built around you.
             </p>
 
@@ -103,7 +103,7 @@ export default function CoreServices() {
               {CORE_SERVICES.map((s) => (
                 <div key={s.title} className="flex items-center gap-3">
                   <div className="w-1 h-1 rounded-full bg-slate-300" />
-                  <span className="text-sm text-slate-400">{s.title}</span>
+                  <span className="text-sm text-grey">{s.title}</span>
                 </div>
               ))}
             </div>
@@ -119,11 +119,11 @@ export default function CoreServices() {
               >
                 <div className="mb-4 w-10 h-px bg-brand" />
                 <h3 className="type-subheading font-medium mb-4">
-                  <span className={i % 2 === 0 ? "text-brand" : "text-slate-900"}>
+                  <span className={i % 2 === 0 ? "text-brand" : "text-black"}>
                     {service.title}
                   </span>
                 </h3>
-                <p className="type-body-lg text-slate-400 max-w-lg">
+                <p className="type-body-lg text-grey max-w-lg">
                   {service.desc}
                 </p>
               </div>
@@ -138,7 +138,7 @@ export default function CoreServices() {
       {/* Mobile — carousel */}
       <div className="lg:hidden section-pad">
         <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={defaultViewport}
-          className="type-eyebrow text-slate-400 mb-4">
+          className="type-eyebrow text-grey mb-4">
           What we do
         </motion.p>
         <motion.h2 variants={fadeUp} initial="hidden" whileInView="visible" viewport={defaultViewport}
@@ -147,7 +147,7 @@ export default function CoreServices() {
           <span className="text-brand">Nothing you don&apos;t.</span>
         </motion.h2>
         <motion.p variants={fadeUp} initial="hidden" whileInView="visible" viewport={defaultViewport}
-          className="type-body-lg text-slate-400 mb-10">
+          className="type-body-lg text-grey mb-10">
           Expert financial support — structured, ethical, and built around you.
         </motion.p>
 
@@ -171,10 +171,10 @@ export default function CoreServices() {
                 variants={lineReveal}
                 className="w-1.5 h-6 bg-brand rounded-full mb-4 opacity-60"
               />
-              <h3 className="type-item-heading font-semibold text-slate-900 mb-2">
+              <h3 className="type-item-heading font-semibold text-black mb-2">
                 {CORE_SERVICES[active].title}
               </h3>
-              <p className="type-body text-slate-400">
+              <p className="type-body text-grey">
                 {CORE_SERVICES[active].desc}
               </p>
             </motion.div>
@@ -197,14 +197,14 @@ export default function CoreServices() {
             <button
               onClick={prev}
               aria-label="Previous"
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white hover:border-brand hover:text-brand transition-colors duration-200 text-slate-500"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white hover:border-brand hover:text-brand transition-colors duration-200 text-grey"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={next}
               aria-label="Next"
-              className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white hover:border-brand hover:text-brand transition-colors duration-200 text-slate-500"
+              className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white hover:border-brand hover:text-brand transition-colors duration-200 text-grey"
             >
               <ChevronRight size={18} />
             </button>

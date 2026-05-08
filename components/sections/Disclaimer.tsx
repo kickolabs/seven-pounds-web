@@ -5,12 +5,12 @@ export default function Disclaimer() {
     <section id="disclaimer" className="px-4 sm:px-6 md:px-8 lg:px-16 py-10 sm:py-14 bg-white border-t border-slate-100">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-start gap-4">
-          <AlertCircle size={18} className="text-slate-300 shrink-0 mt-0.5" />
+          <AlertCircle size={18} className="text-grey shrink-0 mt-0.5" />
           <div>
-            <p className="text-[10px] uppercase tracking-widest text-slate-300 font-medium mb-3">
+            <p className="text-[10px] uppercase tracking-widest text-grey font-medium mb-3">
               Important Disclaimer
             </p>
-            <p className="text-sm text-slate-400 leading-relaxed">
+            <p className="text-sm text-grey leading-relaxed">
               The Seven Pounds provides financial guidance, restructuring assistance, and advisory services.
               All plans and schemes are subject to individual eligibility, financial assessment, and applicable
               terms and conditions. We do not guarantee loan approvals, EMI waivers, or specific financial outcomes.

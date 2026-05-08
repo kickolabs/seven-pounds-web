@@ -191,19 +191,19 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
                 <div className="space-y-1.5">
                   <Label>Full Name *</Label>
                   <Input placeholder="Your name" autoComplete="name" {...register("name")} />
-                  {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
+                  {errors.name && <p className="text-xs text-brand">{errors.name.message}</p>}
                 </div>
                 <div className="space-y-1.5">
                   <Label>Phone *</Label>
                   <Input type="tel" placeholder="98765 43210" autoComplete="tel" {...register("phone")} />
-                  {errors.phone && <p className="text-xs text-red-500">{errors.phone.message}</p>}
+                  {errors.phone && <p className="text-xs text-brand">{errors.phone.message}</p>}
                 </div>
               </div>
 
               <div className="space-y-1.5">
                 <Label>Email *</Label>
                 <Input type="email" placeholder="you@example.com" autoComplete="email" {...register("email")} />
-                {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+                {errors.email && <p className="text-xs text-brand">{errors.email.message}</p>}
               </div>
 
               <div className="space-y-1.5">
@@ -250,17 +250,17 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
           <div aria-live="polite" className="flex flex-col items-center justify-center gap-4 py-12">
             <DialogTitle className="sr-only">Processing payment</DialogTitle>
             <Loader2 size={40} className="animate-spin text-brand" />
-            <p className="text-slate-600 font-medium">Opening payment gateway…</p>
+            <p className="text-grey font-medium">Opening payment gateway…</p>
           </div>
         )}
 
         {step === "gateway-error" && (
           <div aria-live="assertive" className="flex flex-col items-center justify-center gap-4 py-12 text-center">
             <DialogTitle className="sr-only">Payment gateway unavailable</DialogTitle>
-            <WifiOff size={40} className="text-slate-400" />
+            <WifiOff size={40} className="text-grey" />
             <div>
-              <p className="font-semibold text-slate-800 mb-1">Payment gateway unavailable</p>
-              <p className="text-sm text-slate-500">This may be a network issue. Please retry.</p>
+              <p className="font-semibold text-black mb-1">Payment gateway unavailable</p>
+              <p className="text-sm text-grey">This may be a network issue. Please retry.</p>
             </div>
             <button
               onClick={async () => {
@@ -277,7 +277,7 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
               <RefreshCw size={14} />
               Retry
             </button>
-            <button onClick={() => setStep("form")} className="text-sm text-slate-400 hover:text-slate-600 transition-colors">
+            <button onClick={() => setStep("form")} className="text-sm text-grey hover:text-grey transition-colors">
               Go back
             </button>
           </div>
@@ -286,13 +286,13 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
         {step === "success" && (
           <div aria-live="polite" className="flex flex-col items-center justify-center gap-4 py-10 text-center">
             <CheckCircle size={52} className="text-brand" />
-            <DialogTitle className="type-card-heading font-semibold text-slate-900">Consultation Booked!</DialogTitle>
-            <p className="text-slate-400 text-sm max-w-xs leading-relaxed">
+            <DialogTitle className="type-card-heading font-semibold text-black">Consultation Booked!</DialogTitle>
+            <p className="text-grey text-sm max-w-xs leading-relaxed">
               Your payment was successful. Our advisor will contact you within 24 hours.
             </p>
             {bookingId && (
-              <p className="text-xs text-slate-400 font-mono">
-                Booking ID: <span className="text-slate-600">{bookingId.slice(0, 8).toUpperCase()}</span>
+              <p className="text-xs text-grey font-mono">
+                Booking ID: <span className="text-grey">{bookingId.slice(0, 8).toUpperCase()}</span>
               </p>
             )}
             <button

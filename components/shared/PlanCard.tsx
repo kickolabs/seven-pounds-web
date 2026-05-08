@@ -37,14 +37,14 @@ export default function PlanCard({ plan, size = "sm" }: PlanCardProps) {
             {plan.title}
           </h3>
           <p className={cn(
-            "uppercase tracking-widest font-medium text-slate-400 group-hover:text-white/70 transition-colors duration-500",
+            "uppercase tracking-widest font-medium text-grey group-hover:text-white/70 transition-colors duration-500",
             isLg ? "text-xs" : "text-xs"
           )}>
             {plan.subtitle}
           </p>
           {plan.tagline && (
             <p className={cn(
-              "text-slate-300 group-hover:text-white/60 transition-colors duration-500 mt-2 italic",
+              "text-grey group-hover:text-white/60 transition-colors duration-500 mt-2 italic",
               isLg ? "text-sm" : "text-xs"
             )}>
               {plan.tagline}
@@ -61,7 +61,7 @@ export default function PlanCard({ plan, size = "sm" }: PlanCardProps) {
                 className="mt-0.5 text-brand group-hover:text-white transition-colors duration-500 shrink-0"
               />
               <span className={cn(
-                "text-slate-500 group-hover:text-white/80 transition-colors duration-500 leading-tight",
+                "text-grey group-hover:text-white/80 transition-colors duration-500 leading-tight",
                 isLg ? "text-sm" : "text-xs"
               )}>
                 {feature}

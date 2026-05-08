@@ -22,7 +22,7 @@ export default function FinalCTA() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(255,45,85,0.06),_transparent_50%)] pointer-events-none" />
 
           <div className="relative z-10">
-            <motion.p variants={fadeUp} className="type-eyebrow text-slate-500 mb-6">
+            <motion.p variants={fadeUp} className="type-eyebrow text-white/60 mb-6">
               Ready to start?
             </motion.p>
             <motion.h2 variants={fadeUp} className="type-heading font-medium mb-6">
@@ -30,7 +30,7 @@ export default function FinalCTA() {
               <br />
               <span className="text-brand">starts here.</span>
             </motion.h2>
-            <motion.p variants={fadeUp} className="type-body-lg text-slate-400 max-w-xl mx-auto mb-10">
+            <motion.p variants={fadeUp} className="type-body-lg text-white/60 max-w-xl mx-auto mb-10">
               Stop guessing. Book a consultation with The Seven Pounds and start building real financial stability — today.
             </motion.p>
 
@@ -40,7 +40,7 @@ export default function FinalCTA() {
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.2 }}
               onClick={openModal}
-              className="inline-flex items-center gap-2.5 w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-white text-slate-900 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-brand hover:text-white transition-colors duration-400 shadow-lg hover:shadow-glow-rose group"
+              className="inline-flex items-center gap-2.5 w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-white text-black rounded-full font-bold uppercase tracking-widest text-sm hover:bg-brand hover:text-white transition-colors duration-400 shadow-lg hover:shadow-glow-rose group"
             >
               Book a Free Consultation
               <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform duration-200" />

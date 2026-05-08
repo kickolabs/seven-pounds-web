@@ -35,7 +35,7 @@ export default function Footer() {
             <div className="type-card-heading font-semibold tracking-tight text-white mb-4">
               The Seven Pounds
             </div>
-            <p className="text-slate-500 text-sm leading-relaxed max-w-xs">
+            <p className="text-white/60 text-sm leading-relaxed max-w-xs">
               EMI relief &amp; financial stability consultancy. The Seven Pounds — structured guidance to sort your EMIs, cut stress, and build lasting stability.
             </p>
           </motion.div>
@@ -47,7 +47,7 @@ export default function Footer() {
               initial="hidden"
               whileInView="visible"
               viewport={defaultViewport}
-              className="type-eyebrow text-slate-600 mb-6"
+              className="type-eyebrow text-white/60 mb-6"
             >
               Navigation
             </motion.p>
@@ -62,7 +62,7 @@ export default function Footer() {
                 <motion.li key={link.href} variants={listItem}>
                   <button
                     onClick={() => scrollTo(link.href)}
-                    className="text-sm text-slate-500 hover:text-white transition-colors duration-300"
+                    className="text-sm text-white/60 hover:text-white transition-colors duration-300"
                   >
                     {link.label}
                   </button>
@@ -78,7 +78,7 @@ export default function Footer() {
               initial="hidden"
               whileInView="visible"
               viewport={defaultViewport}
-              className="type-eyebrow text-slate-600 mb-6"
+              className="type-eyebrow text-white/60 mb-6"
             >
               Contact
             </motion.p>
@@ -87,7 +87,7 @@ export default function Footer() {
               initial="hidden"
               whileInView="visible"
               viewport={defaultViewport}
-              className="space-y-3 text-sm text-slate-500"
+              className="space-y-3 text-sm text-white/60"
             >
               {["Financial Relief Consultancy", "India"].map((line) => (
                 <motion.li key={line} variants={listItem}>{line}</motion.li>
@@ -112,10 +112,10 @@ export default function Footer() {
           viewport={defaultViewport}
           className="border-t border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4"
         >
-          <p className="text-xs text-slate-600">
+          <p className="text-xs text-white/60">
             © {new Date().getFullYear()} The Seven Pounds. All rights reserved.
           </p>
-          <p className="text-xs text-slate-700">
+          <p className="text-xs text-white/60">
             Financial guidance subject to individual eligibility and terms.
           </p>
         </motion.div>

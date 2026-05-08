@@ -22,7 +22,7 @@ export default function WhoWeServe() {
         initial="hidden"
         whileInView="visible"
         viewport={defaultViewport}
-        className="type-eyebrow text-slate-400 mb-4"
+        className="type-eyebrow text-grey mb-4"
       >
         Who we help
       </motion.p>
@@ -43,7 +43,7 @@ export default function WhoWeServe() {
           initial="hidden"
           whileInView="visible"
           viewport={defaultViewport}
-          className="type-body-lg text-slate-400 max-w-sm"
+          className="type-body-lg text-grey max-w-sm"
         >
           Financial stress hits differently for everyone. We meet you exactly where you are.
         </motion.p>
@@ -84,7 +84,7 @@ export default function WhoWeServe() {
 
                 {/* Title */}
                 <span className={`flex-1 type-item-heading font-semibold transition-colors duration-300 pt-1 ${
-                  isOpen ? "text-brand" : "text-slate-900"
+                  isOpen ? "text-brand" : "text-black"
                 }`}>
                   {item.title}
                 </span>
@@ -93,7 +93,7 @@ export default function WhoWeServe() {
                 <div className={`shrink-0 mt-0.5 w-7 h-7 flex items-center justify-center rounded-full border transition-all duration-300 ${
                   isOpen
                     ? "border-brand bg-brand text-white rotate-45"
-                    : "border-slate-200 text-slate-400"
+                    : "border-slate-200 text-grey"
                 }`}>
                   <Plus size={14} strokeWidth={2.5} />
                 </div>
@@ -111,7 +111,7 @@ export default function WhoWeServe() {
                     transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
                     className="overflow-hidden"
                   >
-                    <p className="px-5 sm:px-6 pb-5 sm:pb-6 pl-[3.75rem] text-slate-500 text-sm leading-relaxed">
+                    <p className="px-5 sm:px-6 pb-5 sm:pb-6 pl-[3.75rem] text-grey text-sm leading-relaxed">
                       {item.desc}
                     </p>
                   </motion.div>

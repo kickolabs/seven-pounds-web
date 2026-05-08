@@ -29,7 +29,7 @@ export default function WhyChooseUs() {
           initial="hidden"
           whileInView="visible"
           viewport={defaultViewport}
-          className="type-eyebrow text-slate-500 mb-4"
+          className="type-eyebrow text-white/60 mb-4"
         >
           Why us
         </motion.p>
@@ -50,7 +50,7 @@ export default function WhyChooseUs() {
             initial="hidden"
             whileInView="visible"
             viewport={defaultViewport}
-            className="type-body-lg text-slate-400 max-w-sm"
+            className="type-body-lg text-white/60 max-w-sm"
           >
             Not just advice — a real partnership built on ethics, expertise, and results.
           </motion.p>
@@ -79,7 +79,7 @@ export default function WhyChooseUs() {
                   </div>
                   <div className="flex flex-col gap-2">
                     <h3 className="type-item-heading font-semibold text-white">{item.title}</h3>
-                    <p className="type-body text-slate-400">{item.desc}</p>
+                    <p className="type-body text-white/60">{item.desc}</p>
                   </div>
                 </motion.div>
               </AnimatePresence>
@@ -101,14 +101,14 @@ export default function WhyChooseUs() {
                 <button
                   onClick={prev}
                   aria-label="Previous"
-                  className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-slate-400 hover:border-brand hover:text-brand transition-colors duration-200"
+                  className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-white/60 hover:border-brand hover:text-brand transition-colors duration-200"
                 >
                   <ChevronLeft size={17} />
                 </button>
                 <button
                   onClick={next}
                   aria-label="Next"
-                  className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-slate-400 hover:border-brand hover:text-brand transition-colors duration-200"
+                  className="w-9 h-9 flex items-center justify-center rounded-full border border-slate-700 text-white/60 hover:border-brand hover:text-brand transition-colors duration-200"
                 >
                   <ChevronRight size={17} />
                 </button>
@@ -135,7 +135,7 @@ export default function WhyChooseUs() {
                   </div>
                   <div className="flex flex-col gap-2 flex-1">
                     <h3 className="type-item-heading font-semibold text-white">{card.title}</h3>
-                    <p className="type-body text-slate-400">{card.desc}</p>
+                    <p className="type-body text-white/60">{card.desc}</p>
                   </div>
                 </div>
               </motion.div>

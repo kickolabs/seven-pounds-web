@@ -37,23 +37,23 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-semibold text-white mb-1">The Seven Pounds</h1>
-          <p className="text-slate-400 text-sm">Admin Portal</p>
+          <p className="text-white/60 text-sm">Admin Portal</p>
         </div>
 
         <form onSubmit={handleLogin} className="bg-slate-900 p-8 rounded-3xl border border-slate-800 space-y-5">
           <div className="space-y-1.5">
-            <Label className="text-slate-300">Email</Label>
+            <Label className="text-white/80">Email</Label>
             <Input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500"
+              className="bg-slate-800 border-slate-700 text-white placeholder:text-white/30"
               placeholder="admin@example.com"
               required
             />
           </div>
           <div className="space-y-1.5">
-            <Label className="text-slate-300">Password</Label>
+            <Label className="text-white/80">Password</Label>
             <Input
               type="password"
               value={password}
@@ -64,7 +64,7 @@ export default function AdminLoginPage() {
             />
           </div>
 
-          {error && <p className="text-red-400 text-sm">{error}</p>}
+          {error && <p className="text-brand text-sm">{error}</p>}
 
           <button
             type="submit"

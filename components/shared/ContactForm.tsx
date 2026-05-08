@@ -74,8 +74,8 @@ export default function ContactForm() {
         className="flex flex-col items-center gap-4 py-12 text-center"
       >
         <CheckCircle size={48} className="text-brand" />
-        <h3 className="type-card-heading font-semibold text-slate-900">Message Received!</h3>
-        <p className="text-slate-400 text-sm max-w-xs">
+        <h3 className="type-card-heading font-semibold text-black">Message Received!</h3>
+        <p className="text-grey text-sm max-w-xs">
           Thank you for reaching out. Our team will get back to you within 24 hours.
         </p>
         <button
@@ -101,7 +101,7 @@ export default function ContactForm() {
         <div className="space-y-1.5">
           <Label htmlFor="contact-name">Full Name *</Label>
           <Input id="contact-name" placeholder="Your name" autoComplete="name" {...register("name")} />
-          {errors.name && <p className="text-xs text-red-500">{errors.name.message}</p>}
+          {errors.name && <p className="text-xs text-brand">{errors.name.message}</p>}
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="contact-phone">Phone Number</Label>
@@ -112,7 +112,7 @@ export default function ContactForm() {
       <motion.div variants={fadeUp} className="space-y-1.5">
         <Label htmlFor="contact-email">Email Address *</Label>
         <Input id="contact-email" type="email" placeholder="you@example.com" autoComplete="email" {...register("email")} />
-        {errors.email && <p className="text-xs text-red-500">{errors.email.message}</p>}
+        {errors.email && <p className="text-xs text-brand">{errors.email.message}</p>}
       </motion.div>
 
       <motion.div variants={fadeUp} className="space-y-1.5">
@@ -124,7 +124,7 @@ export default function ContactForm() {
           autoComplete="off"
           {...register("message")}
         />
-        {errors.message && <p className="text-xs text-red-500">{errors.message.message}</p>}
+        {errors.message && <p className="text-xs text-brand">{errors.message.message}</p>}
       </motion.div>
 
       <motion.div variants={fadeUp}>

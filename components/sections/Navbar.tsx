@@ -74,7 +74,7 @@ export default function Navbar() {
           {/* Desktop: scroll-driven fade */}
           <motion.button
             style={{ opacity: brandLeftOpacity, scale: brandLeftScale, originX: 0 }}
-            className="hidden md:block text-xl font-semibold tracking-tight text-slate-900 select-none whitespace-nowrap"
+            className="hidden md:block text-xl font-semibold tracking-tight text-black select-none whitespace-nowrap"
             onClick={() => scrollTo("#hero")}
           >
             The Seven Pounds
@@ -82,7 +82,7 @@ export default function Navbar() {
 
           {/* Mobile: always visible */}
           <button
-            className="md:hidden text-lg font-semibold tracking-tight text-slate-900 select-none"
+            className="md:hidden text-lg font-semibold tracking-tight text-black select-none"
             onClick={() => scrollTo("#hero")}
           >
             The Seven Pounds
@@ -206,8 +206,8 @@ export default function Navbar() {
                 <button
                   key={link.href}
                   onClick={() => scrollTo(link.href)}
-                  className="block w-full text-left text-base font-medium text-slate-600
-                    hover:text-slate-900 transition-colors py-3.5 border-b border-slate-100 last:border-0"
+                  className="block w-full text-left text-base font-medium text-grey
+                    hover:text-black transition-colors py-3.5 border-b border-slate-100 last:border-0"
                 >
                   {link.label}
                 </button>

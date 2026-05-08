@@ -25,7 +25,7 @@ export default function OurApproach() {
         initial="hidden"
         whileInView="visible"
         viewport={defaultViewport}
-        className="type-eyebrow text-slate-400 mb-4"
+        className="type-eyebrow text-grey mb-4"
       >
         How we work
       </motion.p>
@@ -46,7 +46,7 @@ export default function OurApproach() {
         initial="hidden"
         whileInView="visible"
         viewport={defaultViewport}
-        className="type-body-lg text-slate-400 max-w-2xl mb-12 sm:mb-16"
+        className="type-body-lg text-grey max-w-2xl mb-12 sm:mb-16"
       >
         The Seven Pounds — no jargon, no false promises. Just a clear plan built for your situation.
       </motion.p>
@@ -93,14 +93,14 @@ export default function OurApproach() {
           <button
             onClick={prev}
             aria-label="Previous"
-            className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white hover:border-brand hover:text-brand transition-colors duration-200 text-slate-500"
+            className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white hover:border-brand hover:text-brand transition-colors duration-200 text-grey"
           >
             <ChevronLeft size={18} />
           </button>
           <button
             onClick={next}
             aria-label="Next"
-            className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white hover:border-brand hover:text-brand transition-colors duration-200 text-slate-500"
+            className="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 bg-white hover:border-brand hover:text-brand transition-colors duration-200 text-grey"
           >
             <ChevronRight size={18} />
           </button>

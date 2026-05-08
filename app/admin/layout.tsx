@@ -22,17 +22,17 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <header className="border-b border-slate-800 px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-8">
           <span className="text-white font-semibold">The Seven Pounds · Admin</span>
-          <nav className="flex items-center gap-6 text-sm text-slate-400">
+          <nav className="flex items-center gap-6 text-sm text-white/60">
             <Link href="/admin/leads" className="hover:text-white transition-colors">Consultations</Link>
             <Link href="/admin/contacts" className="hover:text-white transition-colors">Contacts</Link>
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-xs text-slate-500">{user.email}</span>
+          <span className="text-xs text-white/60">{user.email}</span>
           <form action={logout}>
             <button
               type="submit"
-              className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white border border-slate-700 hover:border-slate-500 rounded-full px-3 py-1.5 transition-colors"
+              className="flex items-center gap-1.5 text-xs text-white/60 hover:text-white border border-slate-700 hover:border-slate-500 rounded-full px-3 py-1.5 transition-colors"
             >
               <LogOut size={13} />
               Log out

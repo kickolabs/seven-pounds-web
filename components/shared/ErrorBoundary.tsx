@@ -32,13 +32,13 @@ export default class ErrorBoundary extends Component<Props, State> {
 
       return (
         <div className="flex flex-col items-center justify-center gap-4 py-16 px-6 text-center">
-          <p className="text-slate-500 font-medium">Something went wrong loading this section.</p>
+          <p className="text-grey font-medium">Something went wrong loading this section.</p>
           <button
             onClick={() => {
               this.setState({ hasError: false })
               window.location.reload()
             }}
-            className="px-5 py-2 rounded-full border border-slate-200 text-sm text-slate-600 hover:border-brand hover:text-brand transition-colors"
+            className="px-5 py-2 rounded-full border border-slate-200 text-sm text-grey hover:border-brand hover:text-brand transition-colors"
           >
             Reload page
           </button>
