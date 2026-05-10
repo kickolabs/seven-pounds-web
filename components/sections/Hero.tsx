@@ -1,59 +1,68 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Image from "next/image"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { SPRING } from "@/lib/animations"
 import { useOpenModal } from "@/components/shared/HomeClient"
 
+const SLIDES = Array.from({ length: 7 }, (_, i) => `/images/hero/${i + 1}.jpeg`)
+const INTERVAL = 3500
+
+function Slideshow({ sizes, className }: { sizes: string; className?: string }) {
+  return null
+}
+
 export default function Hero() {
   const openModal = useOpenModal()
   const scrollToContact = () => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
+  const [current, setCurrent] = useState(0)
+
+  useEffect(() => {
+    const timer = setInterval(() => setCurrent(c => (c + 1) % SLIDES.length), INTERVAL)
+    return () => clearInterval(timer)
+  }, [])
+
+  const slides = (sizes: string) => (
+    <AnimatePresence>
+      <motion.div
+        key={current}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+        className="absolute inset-0"
+      >
+        <Image
+          src={SLIDES[current]}
+          alt="The Seven Pounds financial advisor"
+          fill
+          priority={current === 0}
+          sizes={sizes}
+          quality={85}
+          className="object-cover object-center"
+        />
+      </motion.div>
+    </AnimatePresence>
+  )
+
   return (
     <section
       id="hero"
       className="relative bg-white overflow-hidden"
     >
-      {/* Background image — all screen sizes */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.9, delay: 0.05, ease: SPRING }}
-        className="absolute inset-0 z-0"
-      >
-        <Image
-          src="/images/hero-character.png"
-          alt="The Seven Pounds financial advisor"
-          fill
-          priority
-          sizes="100vw"
-          quality={85}
-          className="object-cover object-left-bottom"
-        />
-      </motion.div>
+      {/* Desktop slideshow — absolute, left half */}
+      <div className="hidden lg:block absolute inset-y-0 left-0 w-[58%] z-0">
+        {slides("58vw")}
+      </div>
 
-      {/* Mobile gradient: white at top → transparent at bottom so character shows */}
-      <div className="lg:hidden absolute inset-0 z-10 pointer-events-none
-        bg-gradient-to-b
-        from-white from-[30%]
-        via-white/75 via-[55%]
-        to-transparent to-[85%]"
-      />
-
-      {/* Desktop gradient: transparent left → white right */}
-      <div className="hidden lg:block absolute inset-0 z-10 pointer-events-none
-        bg-gradient-to-r
-        from-white/0 from-[30%]
-        via-white/70 via-[50%]
-        to-white to-[62%]"
-      />
-
-      {/* Desktop: background accent */}
+      {/* Desktop accent */}
       <div className="hidden lg:block absolute top-0 right-0 w-[40%] h-[40%] bg-[radial-gradient(ellipse_at_top_right,_rgba(148,163,184,0.06),_transparent_60%)] pointer-events-none z-10" />
 
-      {/* Content — overlaid on image on all screen sizes */}
-      <div className="relative z-20 min-h-screen flex items-start lg:items-center">
-        <div className="lg:ml-auto w-full lg:w-[52%] xl:w-[48%] px-6 sm:px-10 lg:px-12 xl:px-16 pt-20 sm:pt-24 lg:pt-24 pb-8 lg:pb-12">
+      {/* Text content */}
+      <div className="relative z-20 lg:min-h-screen lg:flex lg:items-center lg:justify-end">
+        <div className="w-full lg:w-[46%] xl:w-[43%] px-6 sm:px-10 lg:px-12 xl:px-16 pt-20 sm:pt-24 lg:pt-0 pb-8 lg:pb-0 lg:flex lg:flex-col lg:justify-center lg:min-h-screen">
 
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
@@ -109,6 +118,11 @@ export default function Hero() {
             ))}
           </motion.div>
         </div>
+      </div>
+
+      {/* Mobile slideshow — below text, full width */}
+      <div className="lg:hidden relative w-full aspect-[4/3]">
+        {slides("100vw")}
       </div>
 
       {/* Scroll hint */}
