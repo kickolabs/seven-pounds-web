@@ -1,139 +1,264 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { SPRING } from "@/lib/animations"
 import { useOpenModal } from "@/components/shared/HomeClient"
 
-const SLIDES = Array.from({ length: 7 }, (_, i) => `/images/hero/${i + 1}.jpeg`)
-const INTERVAL = 3500
-
-function Slideshow({ sizes, className }: { sizes: string; className?: string }) {
-  return null
-}
-
 export default function Hero() {
   const openModal = useOpenModal()
-  const scrollToContact = () => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-  const [current, setCurrent] = useState(0)
 
-  useEffect(() => {
-    const timer = setInterval(() => setCurrent(c => (c + 1) % SLIDES.length), INTERVAL)
-    return () => clearInterval(timer)
-  }, [])
-
-  const slides = (sizes: string) => (
-    <AnimatePresence>
-      <motion.div
-        key={current}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 1, ease: "easeInOut" }}
-        className="absolute inset-0"
-      >
-        <Image
-          src={SLIDES[current]}
-          alt="The Seven Pounds financial advisor"
-          fill
-          priority={current === 0}
-          sizes={sizes}
-          quality={85}
-          className="object-cover object-center"
-        />
-      </motion.div>
-    </AnimatePresence>
-  )
+  const scrollToContact = () => {
+    document
+      .getElementById("contact")
+      ?.scrollIntoView({ behavior: "smooth" })
+  }
 
   return (
     <section
       id="hero"
-      className="relative bg-white overflow-hidden"
+      className="relative overflow-hidden bg-white"
     >
-      {/* Desktop slideshow — absolute, left half */}
-      <div className="hidden lg:block absolute inset-y-0 left-0 w-[58%] z-0">
-        {slides("58vw")}
+
+      {/* DESKTOP VIEW */}
+      <div className="hidden min-h-screen lg:grid lg:grid-cols-2">
+
+        {/* DESKTOP VIDEO */}
+        <div className="relative overflow-hidden">
+
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover"
+          >
+            <source
+              src="/images/7p-desktop.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+
+        {/* DESKTOP CONTENT */}
+        <div className="relative z-10 flex items-center">
+          <div className="w-full px-6 py-20 sm:px-10 lg:px-16">
+
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.8,
+                delay: 0.15,
+                ease: SPRING,
+              }}
+              className="type-display mb-6 max-w-xl font-medium tracking-tight"
+            >
+              Too many EMIs.{" "}
+              <span className="text-brand">
+                One clear plan.
+              </span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.3,
+                ease: SPRING,
+              }}
+              className="type-body mb-8 max-w-lg text-slate-600"
+            >
+              The Seven Pounds restructures your EMIs,
+              cuts the chaos, and puts you back in
+              control — ethically and confidently.
+            </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.45,
+                ease: SPRING,
+              }}
+              className="flex flex-col gap-4 sm:flex-row"
+            >
+              <button
+                onClick={openModal}
+                className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-4 text-sm font-semibold text-white shadow-glow-rose transition-all duration-300 hover:bg-brand-600 hover:shadow-glow-rose-lg"
+              >
+                Get Help Now
+
+                <ArrowRight
+                  size={15}
+                  className="transition-transform duration-200 group-hover:translate-x-1"
+                />
+              </button>
+
+              <button
+                onClick={scrollToContact}
+                className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-7 py-4 text-sm font-medium text-slate-700 transition-all duration-300 hover:border-slate-400"
+              >
+                Talk to an Advisor
+              </button>
+            </motion.div>
+
+            {/* TRUST BADGES */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.7,
+              }}
+              className="mt-10 flex flex-wrap gap-5"
+            >
+              {[
+                "100% ethical",
+                "Strictly confidential",
+                "Zero hidden charges",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="flex items-center gap-2 text-xs text-slate-500"
+                >
+                  <div className="h-1.5 w-1.5 rounded-full bg-brand" />
+                  {item}
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
       </div>
 
-      {/* Desktop accent */}
-      <div className="hidden lg:block absolute top-0 right-0 w-[40%] h-[40%] bg-[radial-gradient(ellipse_at_top_right,_rgba(148,163,184,0.06),_transparent_60%)] pointer-events-none z-10" />
+      {/* MOBILE VIEW */}
+      <div className="block lg:hidden">
 
-      {/* Text content */}
-      <div className="relative z-20 lg:min-h-screen lg:flex lg:items-center lg:justify-end">
-        <div className="w-full lg:w-[46%] xl:w-[43%] px-6 sm:px-10 lg:px-12 xl:px-16 pt-20 sm:pt-24 lg:pt-0 pb-8 lg:pb-0 lg:flex lg:flex-col lg:justify-center lg:min-h-screen">
+        {/* MOBILE VIDEO FRAME */}
+        <div className="bg-white px-4 pt-24">
+
+          <div
+            className="relative mx-auto overflow-hidden rounded-3xl shadow-xl"
+            style={{
+              width: "100%",
+              maxWidth: "200mm",
+              aspectRatio: "200 / 150",
+            }}
+          >
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="h-full w-full object-cover"
+            >
+              <source
+                src="/images/7p-mobile.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </div>
+        </div>
+
+        {/* MOBILE CONTENT */}
+        <div className="bg-white px-6 pb-12 pt-10">
 
           <motion.h1
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: SPRING }}
-            className="type-display font-medium tracking-tight mb-6"
+            transition={{
+              duration: 0.8,
+              ease: SPRING,
+            }}
+            className="mb-5 text-4xl font-semibold leading-tight tracking-tight text-slate-900"
           >
             Too many EMIs.{" "}
-            <span className="text-brand">One clear plan.</span>
+            <span className="text-brand">
+              One clear plan.
+            </span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.25, ease: SPRING }}
-            className="type-body mb-8 max-w-md"
+            transition={{
+              duration: 0.7,
+              delay: 0.15,
+              ease: SPRING,
+            }}
+            className="mb-8 text-base leading-7 text-slate-600"
           >
-            The Seven Pounds restructures your EMIs, cuts the chaos, and puts you back in control — ethically and confidently.
+            The Seven Pounds restructures your EMIs,
+            cuts the chaos, and puts you back in
+            control — ethically and confidently.
           </motion.p>
 
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.42, ease: SPRING }}
-            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3"
+            transition={{
+              duration: 0.7,
+              delay: 0.25,
+              ease: SPRING,
+            }}
+            className="flex flex-col gap-4"
           >
             <button
               onClick={openModal}
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full bg-brand text-white text-sm font-semibold tracking-wide hover:bg-brand-600 transition-all duration-300 shadow-glow-rose hover:shadow-glow-rose-lg group"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-brand px-7 py-4 text-sm font-semibold text-white transition-all duration-300 hover:bg-brand-600"
             >
               Get Help Now
-              <ArrowRight size={15} className="group-hover:translate-x-0.5 transition-transform duration-200" />
+
+              <ArrowRight
+                size={15}
+                className="transition-transform duration-200 group-hover:translate-x-1"
+              />
             </button>
+
             <button
               onClick={scrollToContact}
-              className="hidden sm:inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full border border-slate-200 bg-white/80 backdrop-blur-sm text-grey text-sm font-medium tracking-wide hover:border-slate-400 hover:bg-white transition-all duration-300"
+              className="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-7 py-4 text-sm font-medium text-slate-700 transition-all duration-300 hover:border-slate-400"
             >
               Talk to an Advisor
             </button>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.6, ease: SPRING }}
-            className="mt-8 flex flex-row items-center gap-4 flex-wrap"
-          >
-            {["100% ethical", "Strictly confidential", "Zero hidden charges"].map((badge) => (
-              <div key={badge} className="flex items-center gap-1.5 text-xs text-grey">
-                <div className="w-1 h-1 rounded-full bg-brand" />
-                {badge}
+          {/* TRUST BADGES */}
+          <div className="mt-10 flex flex-wrap gap-5">
+            {[
+              "100% ethical",
+              "Strictly confidential",
+              "Zero hidden charges",
+            ].map((item) => (
+              <div
+                key={item}
+                className="flex items-center gap-2 text-xs text-slate-500"
+              >
+                <div className="h-1.5 w-1.5 rounded-full bg-brand" />
+                {item}
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* Mobile slideshow — below text, full width */}
-      <div className="lg:hidden relative w-full aspect-[4/3]">
-        {slides("100vw")}
-      </div>
-
-      {/* Scroll hint */}
+      {/* SCROLL INDICATOR */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.6 }}
-        className="hidden lg:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-2 z-20"
+        transition={{
+          delay: 1.2,
+          duration: 0.6,
+        }}
+        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 lg:flex"
       >
-        <div className="w-px h-10 bg-gradient-to-b from-slate-400 to-transparent" />
-        <span className="text-[10px] uppercase tracking-widest text-grey font-medium">Scroll</span>
+        <div className="h-10 w-px bg-gradient-to-b from-slate-400 to-transparent" />
+
+        <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500">
+          Scroll
+        </span>
       </motion.div>
     </section>
   )
