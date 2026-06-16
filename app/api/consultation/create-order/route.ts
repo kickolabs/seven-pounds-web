@@ -5,6 +5,7 @@ import { createServiceClient } from "@/lib/supabase/server"
 import { CONSULTATION_FEE_PAISE } from "@/lib/constants"
 import { checkRateLimit } from "@/lib/ratelimit"
 import { env } from "@/lib/env"
+import { consultationFormSchema } from "@/lib/validation"
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": env.siteUrl,
@@ -12,13 +13,7 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
 }
 
-const schema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  phone: z.string().regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit Indian mobile number"),
-  message: z.string().optional(),
-  plan_selected: z.string().optional(),
-})
+const schema = consultationFormSchema
 
 export async function OPTIONS() {
   return new Response(null, { status: 204, headers: CORS_HEADERS })

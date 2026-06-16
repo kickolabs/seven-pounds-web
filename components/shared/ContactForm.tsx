@@ -3,7 +3,6 @@
 import { useState, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
 import { motion } from "framer-motion"
 import { Loader2, CheckCircle } from "lucide-react"
 import { Input } from "@/components/ui/input"
@@ -11,15 +10,14 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { fadeUp, staggerContainer, defaultViewport } from "@/lib/animations"
+import {
+  contactFormSchema,
+  sanitizePhoneInput,
+  type ContactFormData,
+} from "@/lib/validation"
+import { cn } from "@/lib/utils"
 
-const schema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Please enter a valid email"),
-  phone: z.string().optional(),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-})
-
-type FormData = z.infer<typeof schema>
+const fieldErrorClass = "border-brand focus-visible:ring-brand"
 
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false)
@@ -31,8 +29,14 @@ export default function ContactForm() {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(schema) })
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
+    mode: "all",
+    reValidateMode: "onChange",
+    shouldFocusError: true,
+  })
 
   const startCooldown = () => {
     if (cooldownTimer.current) clearInterval(cooldownTimer.current)
@@ -45,7 +49,7 @@ export default function ContactForm() {
     }, 1000)
   }
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: ContactFormData) => {
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -88,6 +92,8 @@ export default function ContactForm() {
     )
   }
 
+  const phoneRegister = register("phone")
+
   return (
     <motion.form
       variants={staggerContainer}
@@ -96,23 +102,73 @@ export default function ContactForm() {
       viewport={defaultViewport}
       onSubmit={handleSubmit(onSubmit)}
       className="space-y-5"
+      noValidate
     >
       <motion.div variants={fadeUp} className="grid grid-cols-1 gap-4">
         <div className="space-y-1.5">
           <Label htmlFor="contact-name">Full Name *</Label>
-          <Input id="contact-name" placeholder="Your name" autoComplete="name" {...register("name")} />
-          {errors.name && <p className="text-xs text-brand">{errors.name.message}</p>}
+          <Input
+            id="contact-name"
+            placeholder="Your name"
+            autoComplete="name"
+            aria-invalid={!!errors.name}
+            aria-describedby={errors.name ? "contact-name-error" : undefined}
+            className={cn(errors.name && fieldErrorClass)}
+            {...register("name")}
+          />
+          {errors.name && (
+            <p id="contact-name-error" role="alert" className="text-xs text-brand">
+              {errors.name.message}
+            </p>
+          )}
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="contact-phone">Phone Number</Label>
-          <Input id="contact-phone" type="tel" placeholder="+91 98765 43210" autoComplete="tel" {...register("phone")} />
+          <Input
+            id="contact-phone"
+            type="tel"
+            inputMode="numeric"
+            placeholder="+91 98765 43210"
+            autoComplete="tel"
+            maxLength={10}
+            aria-invalid={!!errors.phone}
+            aria-describedby={errors.phone ? "contact-phone-error" : undefined}
+            className={cn(errors.phone && fieldErrorClass)}
+            name={phoneRegister.name}
+            ref={phoneRegister.ref}
+            onBlur={phoneRegister.onBlur}
+            onChange={(e) => {
+              setValue("phone", sanitizePhoneInput(e.target.value), {
+                shouldValidate: true,
+                shouldDirty: true,
+              })
+            }}
+          />
+          {errors.phone && (
+            <p id="contact-phone-error" role="alert" className="text-xs text-brand">
+              {errors.phone.message}
+            </p>
+          )}
         </div>
       </motion.div>
 
       <motion.div variants={fadeUp} className="space-y-1.5">
         <Label htmlFor="contact-email">Email Address *</Label>
-        <Input id="contact-email" type="email" placeholder="you@example.com" autoComplete="email" {...register("email")} />
-        {errors.email && <p className="text-xs text-brand">{errors.email.message}</p>}
+        <Input
+          id="contact-email"
+          type="email"
+          placeholder="you@example.com"
+          autoComplete="email"
+          aria-invalid={!!errors.email}
+          aria-describedby={errors.email ? "contact-email-error" : undefined}
+          className={cn(errors.email && fieldErrorClass)}
+          {...register("email")}
+        />
+        {errors.email && (
+          <p id="contact-email-error" role="alert" className="text-xs text-brand">
+            {errors.email.message}
+          </p>
+        )}
       </motion.div>
 
       <motion.div variants={fadeUp} className="space-y-1.5">
@@ -120,11 +176,17 @@ export default function ContactForm() {
         <Textarea
           id="contact-message"
           placeholder="Describe your financial situation briefly..."
-          className="min-h-[120px] resize-none"
+          className={cn("min-h-[120px] resize-none", errors.message && fieldErrorClass)}
           autoComplete="off"
+          aria-invalid={!!errors.message}
+          aria-describedby={errors.message ? "contact-message-error" : undefined}
           {...register("message")}
         />
-        {errors.message && <p className="text-xs text-brand">{errors.message.message}</p>}
+        {errors.message && (
+          <p id="contact-message-error" role="alert" className="text-xs text-brand">
+            {errors.message.message}
+          </p>
+        )}
       </motion.div>
 
       <motion.div variants={fadeUp}>

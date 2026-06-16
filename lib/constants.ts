@@ -78,6 +78,26 @@ export const PLANS_GROUP_A: Plan[] = [
       "Full commitment mapping",
     ],
   },
+  {
+    title: "AI rental plan",
+    subtitle: "AI-powered rental processing",
+    tagline: "Smart rental assessment and approval assistance.",
+    features: [
+      "Monthly EMI reduction",
+      "Better affordability",
+      "More flexibility",
+    ],
+  },
+  {
+    title: "Business collaboration",
+    subtitle: "Strategic partnerships for growth",
+    tagline: "Connect, collaborate, and expand opportunities.",
+    features: [
+      "Business networking support",
+      "Partnership opportunity mapping",
+      "Growth-focused collaboration",
+    ],
+  },
 ];
 
 export const PLANS_GROUP_B: Plan[] = [
@@ -153,6 +173,38 @@ export const WHO_WE_SERVE = [
     icon: "GraduationCap",
     title: "Anyone Seeking Guidance",
     desc: "Need honest, structured financial advice? We're the people to call.",
+  },
+];
+
+export const FAQ_ITEMS = [
+  {
+    question: "What is The Seven Pounds?",
+    answer:
+      "We provide customized debt relief and EMI management solutions to help individuals regain financial stability.",
+  },
+  {
+    question: "Is The Seven Pounds an investment company?",
+    answer:
+      "No. We are a financial consulting firm that offers debt management and EMI relief guidance.",
+  },
+  {
+    question: "Is there any hidden cost?",
+    answer: "No. We maintain complete transparency with no hidden charges.",
+  },
+  {
+    question: "Does the government allow The Seven Pounds to operate?",
+    answer:
+      "Yes. We legally operate as a financial consultancy and advisory service.",
+  },
+  {
+    question: "How can The Seven Pounds help reduce my EMI burden?",
+    answer:
+      "We analyze your finances and suggest practical EMI optimization solutions.",
+  },
+  {
+    question: "Will The Seven Pounds expand across India?",
+    answer:
+      "Yes. We plan to expand our services across India after successful regional operations.",
   },
 ];
 

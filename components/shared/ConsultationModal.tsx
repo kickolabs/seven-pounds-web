@@ -3,7 +3,6 @@
 import { useState, useRef } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { z } from "zod"
 import { Loader2, CheckCircle, CreditCard, WifiOff, RefreshCw } from "lucide-react"
 import {
   Dialog,
@@ -24,7 +23,14 @@ import {
 } from "@/components/ui/select"
 import { ALL_PLANS, CONSULTATION_FEE_PAISE } from "@/lib/constants"
 import { useToast } from "@/hooks/use-toast"
-import { formatCurrency } from "@/lib/utils"
+import { formatCurrency, cn } from "@/lib/utils"
+import {
+  consultationFormSchema,
+  sanitizePhoneInput,
+  type ConsultationFormData,
+} from "@/lib/validation"
+
+const fieldErrorClass = "border-brand focus-visible:ring-brand"
 
 declare global {
   interface Window {
@@ -45,15 +51,9 @@ interface RazorpayOptions {
   modal: { ondismiss: () => void }
 }
 
-const schema = z.object({
-  name: z.string().min(2, "Name required"),
-  email: z.string().email("Valid email required"),
-  phone: z.string().regex(/^[6-9]\d{9}$/, "Enter a valid 10-digit Indian mobile number"),
-  message: z.string().optional(),
-  plan_selected: z.string().optional(),
-})
+const schema = consultationFormSchema
 
-type FormData = z.infer<typeof schema>
+type FormData = ConsultationFormData
 
 type Step = "form" | "processing" | "gateway-error" | "success"
 
@@ -86,7 +86,12 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
     setValue,
     reset,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>({ resolver: zodResolver(schema) })
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
+    mode: "all",
+    reValidateMode: "onChange",
+    shouldFocusError: true,
+  })
 
   const startCooldown = () => {
     if (cooldownTimer.current) clearInterval(cooldownTimer.current)
@@ -179,6 +184,8 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
     }
   }
 
+  const phoneRegister = register("phone")
+
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent
@@ -193,24 +200,72 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
               </DialogDescription>
             </DialogHeader>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 mt-2" noValidate>
               <div className="grid grid-cols-1 gap-4">
                 <div className="space-y-1.5">
-                  <Label>Full Name *</Label>
-                  <Input placeholder="Your name" autoComplete="name" {...register("name")} />
-                  {errors.name && <p className="text-xs text-brand">{errors.name.message}</p>}
+                  <Label htmlFor="consultation-name">Full Name *</Label>
+                  <Input
+                    id="consultation-name"
+                    placeholder="Your name"
+                    autoComplete="name"
+                    aria-invalid={!!errors.name}
+                    aria-describedby={errors.name ? "consultation-name-error" : undefined}
+                    className={cn(errors.name && fieldErrorClass)}
+                    {...register("name")}
+                  />
+                  {errors.name && (
+                    <p id="consultation-name-error" role="alert" className="text-xs text-brand">
+                      {errors.name.message}
+                    </p>
+                  )}
                 </div>
                 <div className="space-y-1.5">
-                  <Label>Phone *</Label>
-                  <Input type="tel" placeholder="98765 43210" autoComplete="tel" {...register("phone")} />
-                  {errors.phone && <p className="text-xs text-brand">{errors.phone.message}</p>}
+                  <Label htmlFor="consultation-phone">Phone *</Label>
+                  <Input
+                    id="consultation-phone"
+                    type="tel"
+                    inputMode="numeric"
+                    placeholder="98765 43210"
+                    autoComplete="tel"
+                    maxLength={10}
+                    aria-invalid={!!errors.phone}
+                    aria-describedby={errors.phone ? "consultation-phone-error" : undefined}
+                    className={cn(errors.phone && fieldErrorClass)}
+                    name={phoneRegister.name}
+                    ref={phoneRegister.ref}
+                    onBlur={phoneRegister.onBlur}
+                    onChange={(e) => {
+                      setValue("phone", sanitizePhoneInput(e.target.value), {
+                        shouldValidate: true,
+                        shouldDirty: true,
+                      })
+                    }}
+                  />
+                  {errors.phone && (
+                    <p id="consultation-phone-error" role="alert" className="text-xs text-brand">
+                      {errors.phone.message}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div className="space-y-1.5">
-                <Label>Email *</Label>
-                <Input type="email" placeholder="you@example.com" autoComplete="email" {...register("email")} />
-                {errors.email && <p className="text-xs text-brand">{errors.email.message}</p>}
+                <Label htmlFor="consultation-email">Email *</Label>
+                <Input
+                  id="consultation-email"
+                  type="email"
+                  placeholder="you@example.com"
+                  autoComplete="email"
+                  aria-invalid={!!errors.email}
+                  aria-describedby={errors.email ? "consultation-email-error" : undefined}
+                  className={cn(errors.email && fieldErrorClass)}
+                  {...register("email")}
+                />
+                {errors.email && (
+                  <p id="consultation-email-error" role="alert" className="text-xs text-brand">
+                    {errors.email.message}
+                  </p>
+                )}
               </div>
 
               <div className="space-y-1.5">
@@ -230,13 +285,21 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
               </div>
 
               <div className="space-y-1.5">
-                <Label>Brief Message (Optional)</Label>
+                <Label htmlFor="consultation-message">Brief Message (Optional)</Label>
                 <Textarea
+                  id="consultation-message"
                   placeholder="Briefly describe your situation…"
-                  className="resize-none min-h-[80px]"
+                  className={cn("resize-none min-h-[80px]", errors.message && fieldErrorClass)}
                   autoComplete="off"
+                  aria-invalid={!!errors.message}
+                  aria-describedby={errors.message ? "consultation-message-error" : undefined}
                   {...register("message")}
                 />
+                {errors.message && (
+                  <p id="consultation-message-error" role="alert" className="text-xs text-brand">
+                    {errors.message.message}
+                  </p>
+                )}
               </div>
 
               <button

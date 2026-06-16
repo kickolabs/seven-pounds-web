@@ -89,15 +89,15 @@ export default function Footer() {
               viewport={defaultViewport}
               className="space-y-3 text-sm text-white/60"
             >
-              {["Financial Relief Consultancy", "India"].map((line) => (
+              {["Financial Relief Consultancy", "Chennai, India"].map((line) => (
                 <motion.li key={line} variants={listItem}>{line}</motion.li>
               ))}
               <motion.li variants={listItem}>
                 <a
-                  href="mailto:info@thesevenpounds.in"
+                  href="mailto:emis@thesevenpounds.in"
                   className="hover:text-white transition-colors duration-300"
                 >
-                  info@thesevenpounds.in
+                  emis@thesevenpounds.in
                 </a>
               </motion.li>
             </motion.ul>

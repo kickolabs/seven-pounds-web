@@ -14,7 +14,7 @@ const TABS = [
     Icon: LayoutGrid,
     plans: PLANS_GROUP_A,
     size: "sm" as const,
-    grid: "grid-cols-1 lg:grid-cols-4",
+    grid: "grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr",
   },
   {
     id: "flex",
@@ -136,7 +136,7 @@ export default function NewLaunchSchemes() {
             animate="center"
             exit="exit"
             transition={{ duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
-            className={`grid gap-5 sm:gap-6 ${currentTab.grid}`}
+            className={`grid gap-5 sm:gap-6 [&>*]:h-full ${currentTab.grid}`}
           >
             {currentTab.plans.map((plan, i) => (
               <PlanCard

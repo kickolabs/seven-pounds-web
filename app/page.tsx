@@ -5,6 +5,7 @@ import CoreServices from "@/components/sections/CoreServices"
 import NewLaunchSchemes from "@/components/sections/NewLaunchSchemes"
 import WhoWeServe from "@/components/sections/WhoWeServe"
 import WhyChooseUs from "@/components/sections/WhyChooseUs"
+import FAQ from "@/components/sections/FAQ"
 import ContactSection from "@/components/sections/ContactSection"
 import FinalCTA from "@/components/sections/FinalCTA"
 import Disclaimer from "@/components/sections/Disclaimer"
@@ -27,6 +28,7 @@ export default function HomePage() {
         </ErrorBoundary>
         <WhoWeServe />
         <WhyChooseUs />
+        <FAQ />
         <ContactSection />
         <FinalCTA />
         <Disclaimer />

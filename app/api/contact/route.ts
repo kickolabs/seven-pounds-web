@@ -4,6 +4,7 @@ import { createServiceClient } from "@/lib/supabase/server"
 import { checkRateLimit } from "@/lib/ratelimit"
 import { sendContactNotification } from "@/lib/email"
 import { env } from "@/lib/env"
+import { contactFormSchema } from "@/lib/validation"
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": env.siteUrl,
@@ -11,12 +12,7 @@ const CORS_HEADERS = {
   "Access-Control-Allow-Headers": "Content-Type",
 }
 
-const schema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  phone: z.string().optional(),
-  message: z.string().min(10),
-})
+const schema = contactFormSchema
 
 export async function OPTIONS() {
   return new Response(null, { status: 204, headers: CORS_HEADERS })
@@ -40,7 +36,7 @@ export async function POST(req: NextRequest) {
     const { error } = await supabase.from("contacts").insert({
       name: data.name,
       email: data.email,
-      phone: data.phone ?? null,
+      phone: data.phone,
       message: data.message,
     })
 
