@@ -4,6 +4,7 @@ import crypto from "crypto"
 import { createServiceClient } from "@/lib/supabase/server"
 import { checkRateLimit } from "@/lib/ratelimit"
 import { sendBookingNotification } from "@/lib/email"
+import { notifyLeadViaWhatsApp } from "@/lib/lead-notifications"
 import { env } from "@/lib/env"
 
 const CORS_HEADERS = {
@@ -47,10 +48,9 @@ export async function POST(req: NextRequest) {
 
     const supabase = await createServiceClient()
 
-    // Idempotency — return early if already processed
     const { data: existing } = await supabase
       .from("consultations")
-      .select("id, name, email, phone, plan_selected, payment_status")
+      .select("id, name, email, phone, plan_selected, message, payment_status")
       .eq("razorpay_payment_id", data.razorpay_payment_id)
       .maybeSingle()
 
@@ -66,19 +66,36 @@ export async function POST(req: NextRequest) {
         razorpay_signature: data.razorpay_signature,
       })
       .eq("razorpay_order_id", data.razorpay_order_id)
-      .select("id, name, email, phone, plan_selected")
+      .select("id, name, email, phone, plan_selected, message")
       .single()
 
     if (error) throw error
 
-    // Fire-and-forget email — don't block the response
+    console.info("[Consultation] Supabase payment update successful", { id: updated.id })
+
     sendBookingNotification({
       name: updated.name,
       email: updated.email,
       phone: updated.phone,
       plan: updated.plan_selected,
       bookingId: updated.id,
-    }).catch((e) => console.error("Email send failed:", e instanceof Error ? e.message : "Unknown error"))
+    }).catch((e) =>
+      console.error("[Consultation] Email send failed:", e instanceof Error ? e.message : "Unknown error")
+    )
+
+    const whatsappStatus = await notifyLeadViaWhatsApp(supabase, "consultations", updated.id, {
+      name: updated.name,
+      phone: updated.phone,
+      email: updated.email,
+      service: updated.plan_selected ?? "Consultation Booking",
+      message: updated.message ?? "Consultation payment completed.",
+      source: "Website Consultation Form",
+    })
+
+    console.info("[Consultation] WhatsApp notification finished", {
+      id: updated.id,
+      status: whatsappStatus,
+    })
 
     return NextResponse.json({ success: true, bookingId: updated.id }, { headers: CORS_HEADERS })
   } catch (err) {

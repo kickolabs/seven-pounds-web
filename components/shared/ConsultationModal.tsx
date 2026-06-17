@@ -21,7 +21,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { ALL_PLANS, CONSULTATION_FEE_PAISE } from "@/lib/constants"
+import { ALL_PLANS, CONSULTATION_FEE_PAISE, FORM_SUCCESS_MESSAGE } from "@/lib/constants"
 import { useToast } from "@/hooks/use-toast"
 import { formatCurrency, cn } from "@/lib/utils"
 import {
@@ -358,7 +358,7 @@ export default function ConsultationModal({ open, onClose }: ConsultationModalPr
             <CheckCircle size={52} className="text-brand" />
             <DialogTitle className="type-card-heading font-semibold text-black">Consultation Booked!</DialogTitle>
             <p className="text-grey text-sm max-w-xs leading-relaxed">
-              Your payment was successful. Our advisor will contact you within 24 hours.
+              {FORM_SUCCESS_MESSAGE}
             </p>
             {bookingId && (
               <p className="text-xs text-grey font-mono">

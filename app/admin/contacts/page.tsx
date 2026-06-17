@@ -11,7 +11,14 @@ type Contact = {
   email: string
   phone: string | null
   message: string
+  notification_status?: string | null
   created_at: string
+}
+
+const notificationColors: Record<string, string> = {
+  sent: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+  failed: "bg-brand/10 text-brand border-brand/20",
+  pending: "bg-yellow-500/10 text-yellow-300 border-yellow-500/30",
 }
 
 function formatDate(iso: string) {
@@ -103,9 +110,16 @@ export default async function ContactsPage({
                     <p className="text-white/60 text-sm">{contact.email}</p>
                     {contact.phone && <p className="text-white/60 text-sm">{contact.phone}</p>}
                   </div>
-                  <span className="text-xs text-white/60 whitespace-nowrap">
-                    {formatDate(contact.created_at)}
-                  </span>
+                  <div className="flex flex-col items-end gap-2">
+                    <span className="text-xs text-white/60 whitespace-nowrap">
+                      {formatDate(contact.created_at)}
+                    </span>
+                    <span
+                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-medium border uppercase tracking-wide ${notificationColors[contact.notification_status ?? "pending"]}`}
+                    >
+                      WhatsApp {contact.notification_status ?? "pending"}
+                    </span>
+                  </div>
                 </div>
                 <p className="text-white/80 text-sm leading-relaxed">{contact.message}</p>
               </div>

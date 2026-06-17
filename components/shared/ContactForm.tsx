@@ -15,6 +15,7 @@ import {
   sanitizePhoneInput,
   type ContactFormData,
 } from "@/lib/validation"
+import { FORM_SUCCESS_MESSAGE } from "@/lib/constants"
 import { cn } from "@/lib/utils"
 
 const fieldErrorClass = "border-brand focus-visible:ring-brand"
@@ -80,7 +81,7 @@ export default function ContactForm() {
         <CheckCircle size={48} className="text-brand" />
         <h3 className="type-card-heading font-semibold text-black">Message Received!</h3>
         <p className="text-grey text-sm max-w-xs">
-          Thank you for reaching out. Our team will get back to you within 24 hours.
+          {FORM_SUCCESS_MESSAGE}
         </p>
         <button
           onClick={() => setSubmitted(false)}

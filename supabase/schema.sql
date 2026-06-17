@@ -16,18 +16,22 @@ create table public.consultations (
   razorpay_order_id   text unique,
   razorpay_payment_id text,
   razorpay_signature  text,
+  notification_status text not null default 'pending'
+                        check (notification_status in ('pending', 'sent', 'failed')),
   created_at          timestamptz not null default now(),
   updated_at          timestamptz not null default now()
 );
 
 -- Contacts
 create table public.contacts (
-  id         uuid primary key default uuid_generate_v4(),
-  name       text not null,
-  email      text not null,
-  phone      text,
-  message    text not null,
-  created_at timestamptz not null default now()
+  id                   uuid primary key default uuid_generate_v4(),
+  name                 text not null,
+  email                text not null,
+  phone                text,
+  message              text not null,
+  notification_status  text not null default 'pending'
+                         check (notification_status in ('pending', 'sent', 'failed')),
+  created_at           timestamptz not null default now()
 );
 
 -- Auto-update updated_at
@@ -65,3 +69,5 @@ create policy "service_role_all_contacts"
 create index consultations_created_at_idx on public.consultations(created_at desc);
 create index contacts_created_at_idx on public.contacts(created_at desc);
 create index consultations_payment_status_idx on public.consultations(payment_status);
+create index contacts_notification_status_idx on public.contacts(notification_status);
+create index consultations_notification_status_idx on public.consultations(notification_status);

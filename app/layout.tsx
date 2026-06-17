@@ -4,6 +4,7 @@ import "./globals.css";
 import { inter } from "@/lib/fonts";
 import { SITE_METADATA } from "@/lib/constants";
 import LenisProvider from "@/components/shared/LenisProvider";
+import FloatingWhatsApp from "@/components/shared/FloatingWhatsApp";
 import { Toaster } from "@/components/ui/toaster";
 
 const jsonLd = {
@@ -68,6 +69,7 @@ export default function RootLayout({
         <LenisProvider>
           {children}
         </LenisProvider>
+        <FloatingWhatsApp />
         <Toaster />
       </body>
     </html>

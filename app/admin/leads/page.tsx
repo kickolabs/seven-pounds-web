@@ -13,8 +13,15 @@ type Consultation = {
   phone: string
   plan_selected: string | null
   payment_status: string
+  notification_status?: string | null
   razorpay_order_id: string | null
   created_at: string
+}
+
+const notificationColors: Record<string, string> = {
+  sent: "bg-emerald-500/10 text-emerald-300 border-emerald-500/30",
+  failed: "bg-brand/10 text-brand border-brand/20",
+  pending: "bg-yellow-500/10 text-yellow-300 border-yellow-500/30",
 }
 
 const statusColors: Record<string, string> = {
@@ -118,6 +125,7 @@ export default async function LeadsPage({
                 <th className="px-6 py-4">Phone</th>
                 <th className="px-6 py-4">Plan</th>
                 <th className="px-6 py-4">Status</th>
+                <th className="px-6 py-4">WhatsApp</th>
                 <th className="px-6 py-4">Date</th>
                 <th className="px-6 py-4">Action</th>
               </tr>
@@ -125,7 +133,7 @@ export default async function LeadsPage({
             <tbody className="divide-y divide-slate-800">
               {consultations.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-16 text-center">
+                  <td colSpan={8} className="px-6 py-16 text-center">
                     <p className="text-white/60 font-medium">No consultations yet</p>
                     <p className="text-white/60 text-xs mt-1">Records will appear here once payments are made</p>
                   </td>
@@ -140,6 +148,11 @@ export default async function LeadsPage({
                     <td className="px-6 py-4">
                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${statusColors[row.payment_status] ?? statusColors.pending}`}>
                         {row.payment_status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${notificationColors[row.notification_status ?? "pending"]}`}>
+                        {row.notification_status ?? "pending"}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-white/60 text-xs whitespace-nowrap">

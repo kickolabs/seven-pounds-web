@@ -7,6 +7,20 @@ export const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ];
 
+export const FORM_SUCCESS_MESSAGE =
+  "Thank you for contacting The Seven Pounds. Our team has received your request and will contact you shortly.";
+
+export const SUPPORT_PHONE_DISPLAY = "+91 89258 56552";
+export const SUPPORT_PHONE_TEL = "tel:+918925856552";
+export const SUPPORT_EMAIL = "emis@thesevenpounds.com";
+export const SUPPORT_WHATSAPP_URL = "https://wa.me/918925856552";
+
+export const SOCIAL_LINKS = {
+  instagram: "https://www.instagram.com/the_sevenpounds?igsh=NmJvZTJ2bW5ocjFj",
+  facebook: "https://www.facebook.com/share/1BLxWELfbc/",
+  whatsapp: SUPPORT_WHATSAPP_URL,
+} as const;
+
 export const CORE_SERVICES = [
   {
     title: "EMI Restructuring",

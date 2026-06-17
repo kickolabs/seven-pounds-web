@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 import crypto from "crypto"
 import { createServiceClient } from "@/lib/supabase/server"
 import { sendBookingNotification } from "@/lib/email"
+import { notifyLeadViaWhatsApp } from "@/lib/lead-notifications"
 import { env } from "@/lib/env"
 
 export async function POST(req: NextRequest) {
@@ -65,17 +66,33 @@ async function handleEvent(event: {
       .from("consultations")
       .update({ payment_status: "paid", razorpay_payment_id: paymentId })
       .eq("razorpay_order_id", orderId)
-      .select("id, name, email, phone, plan_selected")
+      .select("id, name, email, phone, plan_selected, message")
       .single()
 
     if (updated) {
-      await sendBookingNotification({
+      console.info("[Consultation Webhook] Supabase payment update successful", { id: updated.id })
+
+      sendBookingNotification({
         name: updated.name,
         email: updated.email,
         phone: updated.phone,
         plan: updated.plan_selected,
         bookingId: updated.id,
-      }).catch((e) => console.error("Email failed:", e instanceof Error ? e.message : "Unknown error"))
+      }).catch((e) => console.error("[Consultation Webhook] Email failed:", e instanceof Error ? e.message : "Unknown error"))
+
+      const whatsappStatus = await notifyLeadViaWhatsApp(supabase, "consultations", updated.id, {
+        name: updated.name,
+        phone: updated.phone,
+        email: updated.email,
+        service: updated.plan_selected ?? "Consultation Booking",
+        message: updated.message ?? "Consultation payment completed.",
+        source: "Website Consultation Form",
+      })
+
+      console.info("[Consultation Webhook] WhatsApp notification finished", {
+        id: updated.id,
+        status: whatsappStatus,
+      })
     }
   }
 

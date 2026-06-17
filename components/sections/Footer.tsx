@@ -1,9 +1,21 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { NAV_LINKS, NAVBAR_HEIGHT } from "@/lib/constants"
+import { Phone, Mail } from "lucide-react"
+import {
+  NAV_LINKS,
+  NAVBAR_HEIGHT,
+  SUPPORT_PHONE_DISPLAY,
+  SUPPORT_PHONE_TEL,
+  SUPPORT_EMAIL,
+  SOCIAL_LINKS,
+} from "@/lib/constants"
 import { useLenis } from "@/components/shared/LenisProvider"
 import { fadeUp, fadeIn, staggerFast, listItem, defaultViewport } from "@/lib/animations"
+import { InstagramIcon, FacebookIcon, WhatsAppIcon } from "@/components/shared/social-icons"
+
+const socialIconClass =
+  "flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:text-white"
 
 export default function Footer() {
   const lenis = useLenis()
@@ -38,6 +50,35 @@ export default function Footer() {
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
               EMI relief &amp; financial stability consultancy. The Seven Pounds — structured guidance to sort your EMIs, cut stress, and build lasting stability.
             </p>
+            <div className="mt-5 flex items-center gap-3">
+              <a
+                href={SOCIAL_LINKS.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className={socialIconClass}
+              >
+                <InstagramIcon size={16} />
+              </a>
+              <a
+                href={SOCIAL_LINKS.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className={socialIconClass}
+              >
+                <FacebookIcon size={16} />
+              </a>
+              <a
+                href={SOCIAL_LINKS.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className={socialIconClass}
+              >
+                <WhatsAppIcon size={16} />
+              </a>
+            </div>
           </motion.div>
 
           {/* Navigation */}
@@ -94,10 +135,20 @@ export default function Footer() {
               ))}
               <motion.li variants={listItem}>
                 <a
-                  href="mailto:emis@thesevenpounds.in"
-                  className="hover:text-white transition-colors duration-300"
+                  href={SUPPORT_PHONE_TEL}
+                  className="inline-flex items-center gap-2 hover:text-white transition-colors duration-300"
                 >
-                  emis@thesevenpounds.in
+                  <Phone size={15} className="shrink-0 text-white/40" aria-hidden="true" />
+                  {SUPPORT_PHONE_DISPLAY}
+                </a>
+              </motion.li>
+              <motion.li variants={listItem}>
+                <a
+                  href={`mailto:${SUPPORT_EMAIL}`}
+                  className="inline-flex items-center gap-2 hover:text-white transition-colors duration-300"
+                >
+                  <Mail size={15} className="shrink-0 text-white/40" aria-hidden="true" />
+                  {SUPPORT_EMAIL}
                 </a>
               </motion.li>
             </motion.ul>

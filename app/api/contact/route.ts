@@ -3,6 +3,7 @@ import { z } from "zod"
 import { createServiceClient } from "@/lib/supabase/server"
 import { checkRateLimit } from "@/lib/ratelimit"
 import { sendContactNotification } from "@/lib/email"
+import { notifyLeadViaWhatsApp } from "@/lib/lead-notifications"
 import { env } from "@/lib/env"
 import { contactFormSchema } from "@/lib/validation"
 
@@ -33,29 +34,60 @@ export async function POST(req: NextRequest) {
     const data = schema.parse(body)
 
     const supabase = await createServiceClient()
-    const { error } = await supabase.from("contacts").insert({
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      message: data.message,
-    })
+    const { data: inserted, error } = await supabase
+      .from("contacts")
+      .insert({
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        message: data.message,
+      })
+      .select("id")
+      .single()
 
-    if (error) throw error
+    if (error) {
+      console.error("[Contact] Supabase insert failed:", error.message, error)
+      throw error
+    }
 
-    // Fire-and-forget email
+    console.info("[Contact] Supabase insert successful", { id: inserted.id })
+
     sendContactNotification({
       name: data.name,
       email: data.email,
       phone: data.phone,
       message: data.message,
-    }).catch((e) => console.error("Email send failed:", e instanceof Error ? e.message : "Unknown error"))
+    }).catch((e) =>
+      console.error("[Contact] Email send failed:", e instanceof Error ? e.message : "Unknown error")
+    )
+
+    const whatsappStatus = await notifyLeadViaWhatsApp(supabase, "contacts", inserted.id, {
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      service: "Contact Form",
+      message: data.message,
+      source: "Website Contact Form",
+    })
+
+    console.info("[Contact] WhatsApp notification finished", {
+      id: inserted.id,
+      status: whatsappStatus,
+    })
 
     return NextResponse.json({ success: true }, { headers: CORS_HEADERS })
   } catch (err) {
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: err.errors }, { status: 400, headers: CORS_HEADERS })
     }
-    console.error("Contact form error:", err instanceof Error ? err.message : "Unknown error")
+    console.error(
+      "[Contact] Form error:",
+      err instanceof Error
+        ? err.message
+        : typeof err === "object" && err !== null && "message" in err
+          ? String((err as { message: unknown }).message)
+          : "Unknown error"
+    )
     return NextResponse.json({ error: "Internal server error" }, { status: 500, headers: CORS_HEADERS })
   }
 }
