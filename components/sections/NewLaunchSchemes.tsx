@@ -77,6 +77,15 @@ export default function NewLaunchSchemes() {
             initial="hidden"
             whileInView="visible"
             viewport={defaultViewport}
+            className="type-body-lg text-grey max-w-2xl mx-auto mb-2"
+          >
+            Comprehensive Debt Relief &amp; Fintech Management Services
+          </motion.p>
+          <motion.p
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={defaultViewport}
             className="type-body-lg text-grey max-w-2xl mx-auto"
           >
             One of these fits your situation. Let&apos;s get you started.

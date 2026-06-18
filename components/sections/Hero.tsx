@@ -1,4 +1,4 @@
-"use client"
+  "use client"
 
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
@@ -43,6 +43,15 @@ export default function Hero() {
         {/* DESKTOP CONTENT */}
         <div className="relative z-10 flex items-center">
           <div className="w-full px-6 py-20 sm:px-10 lg:px-16">
+
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: SPRING }}
+              className="type-eyebrow text-grey mb-4"
+            >
+              Trusted Fintech Management Services
+            </motion.p>
 
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -165,6 +174,15 @@ export default function Hero() {
         {/* MOBILE CONTENT */}
         <div className="bg-white px-6 pb-12 pt-10">
 
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: SPRING }}
+            className="type-eyebrow text-grey mb-4"
+          >
+            Trusted Fintech Management Services
+          </motion.p>
+
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -172,12 +190,13 @@ export default function Hero() {
               duration: 0.8,
               ease: SPRING,
             }}
-            className="mb-5 text-4xl font-semibold leading-tight tracking-tight text-slate-900"
+            className="mb-5 text-3xl sm:text-4xl font-semibold leading-tight tracking-tight text-slate-900"
           >
-            Too many EMIs.{" "}
+            Debt Relief &amp;{" "}
             <span className="text-brand">
-              One clear plan.
-            </span>
+              Fintech Management Services
+            </span>{" "}
+            for Financial Stability
           </motion.h1>
 
           <motion.p
@@ -190,9 +209,9 @@ export default function Hero() {
             }}
             className="mb-8 text-base leading-7 text-slate-600"
           >
-            The Seven Pounds restructures your EMIs,
-            cuts the chaos, and puts you back in
-            control — ethically and confidently.
+            The Seven Pounds provides professional debt management, EMI optimization,
+            financial restructuring, and fintech management services designed to help
+            individuals and businesses regain financial control and long-term stability.
           </motion.p>
 
           <motion.div

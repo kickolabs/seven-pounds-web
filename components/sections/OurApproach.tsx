@@ -48,7 +48,7 @@ export default function OurApproach() {
         viewport={defaultViewport}
         className="type-body-lg text-grey max-w-2xl mb-12 sm:mb-16"
       >
-        The Seven Pounds — no jargon, no false promises. Just a clear plan built for your situation.
+        The Seven Pounds is a modern financial consultancy specializing in debt resolution, EMI management, and fintech management services that help clients make informed financial decisions.
       </motion.p>
 
       {/* Carousel */}

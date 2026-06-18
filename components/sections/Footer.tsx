@@ -48,7 +48,10 @@ export default function Footer() {
               The Seven Pounds
             </div>
             <p className="text-white/60 text-sm leading-relaxed max-w-xs">
-              EMI relief &amp; financial stability consultancy. The Seven Pounds — structured guidance to sort your EMIs, cut stress, and build lasting stability.
+              EMI Relief, Debt Resolution &amp; Fintech Management Services.
+            </p>
+            <p className="text-white/60 text-sm leading-relaxed max-w-xs mt-3">
+              We provide structured financial guidance to help individuals and businesses reduce financial stress, optimize EMIs, and achieve long-term financial stability.
             </p>
             <div className="mt-5 flex items-center gap-3">
               <a

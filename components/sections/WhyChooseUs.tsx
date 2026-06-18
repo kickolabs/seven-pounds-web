@@ -1,12 +1,12 @@
 "use client"
 
 import { motion, AnimatePresence } from "framer-motion"
-import { BadgeCheck, CircleSlash, Lock, Fingerprint, Target, ChevronLeft, ChevronRight } from "lucide-react"
+import { BadgeCheck, CircleSlash, Lock, Fingerprint, Target, Cpu, ChevronLeft, ChevronRight } from "lucide-react"
 import { WHY_CHOOSE_US } from "@/lib/constants"
 import { fadeUp, staggerContainer, defaultViewport } from "@/lib/animations"
 import { useCarousel } from "@/lib/hooks/useCarousel"
 
-const iconMap = { BadgeCheck, CircleSlash, Lock, Fingerprint, Target } as const
+const iconMap = { BadgeCheck, CircleSlash, Lock, Fingerprint, Target, Cpu } as const
 type IconName = keyof typeof iconMap
 
 const slideVariants = {

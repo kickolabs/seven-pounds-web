@@ -45,7 +45,7 @@ export default function WhoWeServe() {
           viewport={defaultViewport}
           className="type-body-lg text-grey max-w-sm"
         >
-          Financial stress hits differently for everyone. We meet you exactly where you are.
+          We help salaried professionals, business owners, families, and individuals through debt relief, EMI restructuring, and fintech management services tailored to their financial goals.
         </motion.p>
       </div>
 

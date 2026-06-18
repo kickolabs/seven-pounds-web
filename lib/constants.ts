@@ -23,24 +23,29 @@ export const SOCIAL_LINKS = {
 
 export const CORE_SERVICES = [
   {
-    title: "EMI Restructuring",
+    title: "Debt Relief Solutions",
+    desc: "Strategic debt resolution to cut your financial burden and restore balance — fast.",
+    icon: "Shield",
+  },
+  {
+    title: "EMI Optimization",
     desc: "We reorganize your EMIs into formats that actually work for your budget.",
     icon: "LayoutGrid",
   },
   {
-    title: "Financial Planning",
-    desc: "A clear, structured plan to prevent future stress and lock in long-term stability.",
-    icon: "TrendingUp",
-  },
-  {
-    title: "Debt Management",
-    desc: "Strategic advice to cut your financial burden and restore balance — fast.",
-    icon: "Shield",
-  },
-  {
-    title: "1-on-1 Consultation",
+    title: "Financial Advisory",
     desc: "Private expert sessions, tailored entirely to your situation and goals.",
     icon: "UserCheck",
+  },
+  {
+    title: "Fintech Management Services",
+    desc: "Technology-driven financial solutions that simplify decisions and accelerate stability.",
+    icon: "Cpu",
+  },
+  {
+    title: "Financial Stability Planning",
+    desc: "A clear, structured plan to prevent future stress and lock in long-term stability.",
+    icon: "TrendingUp",
   },
 ] as const;
 
@@ -248,14 +253,19 @@ export const WHY_CHOOSE_US = [
     title: "Long-term results",
     desc: "We're not here for quick fixes. We're here for your lasting financial health.",
   },
+  {
+    icon: "Cpu",
+    title: "Fintech expertise",
+    desc: "Financial restructuring guidance, EMI optimization strategies, and technology-driven financial solutions.",
+  },
 ];
 
 export const CONSULTATION_FEE_PAISE = 49900; // ₹499 in paise
 
 export const SITE_METADATA = {
   name: "The Seven Pounds",
-  tagline: "EMI relief. Real results.",
+  tagline: "Debt Relief & Fintech Management Services",
   description:
-    "Structured EMI relief and honest financial guidance — cut the chaos, rebuild stability, and own your finances again.",
+    "Professional debt relief, EMI optimization, financial restructuring, and fintech management services designed to improve financial stability and reduce financial stress.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://thesevenpounds.in",
 };

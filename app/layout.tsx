@@ -19,11 +19,18 @@ const jsonLd = {
   },
   currenciesAccepted: "INR",
   priceRange: "₹₹",
+  serviceType: [
+    "Debt Relief Solutions",
+    "EMI Optimization",
+    "Financial Advisory",
+    "Fintech Management Services",
+    "Financial Stability Planning",
+  ],
 };
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_METADATA.name} — ${SITE_METADATA.tagline}`,
+    default: "The Seven Pounds | Debt Relief & Fintech Management Services",
     template: `%s | ${SITE_METADATA.name}`,
   },
   description: SITE_METADATA.description,
@@ -32,7 +39,7 @@ export const metadata: Metadata = {
     canonical: SITE_METADATA.url,
   },
   openGraph: {
-    title: `${SITE_METADATA.name} — ${SITE_METADATA.tagline}`,
+    title: "The Seven Pounds | Debt Relief & Fintech Management Services",
     description: SITE_METADATA.description,
     url: SITE_METADATA.url,
     siteName: SITE_METADATA.name,
@@ -42,13 +49,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: `${SITE_METADATA.name} — ${SITE_METADATA.tagline}`,
+        alt: "The Seven Pounds | Debt Relief & Fintech Management Services",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE_METADATA.name} — ${SITE_METADATA.tagline}`,
+    title: "The Seven Pounds | Debt Relief & Fintech Management Services",
     description: SITE_METADATA.description,
     images: ["/og-image.png"],
   },
